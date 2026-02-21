@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
+import { Inter, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 
-// Import local font files from @fontsource
-import "@fontsource/inter/400.css";
-import "@fontsource/dm-sans/400.css";
-import "@fontsource/dm-sans/500.css";
-import "@fontsource/dm-sans/600.css";
-import "@fontsource/dm-sans/700.css";
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "GridCart | Modern eCommerce",
@@ -20,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${dmSans.variable}`}>
       <body className="antialiased">
         <Providers>{children}</Providers>
       </body>
