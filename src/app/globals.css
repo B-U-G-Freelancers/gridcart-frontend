@@ -3,7 +3,9 @@
 @theme {
   /* Colors */
   --color-primary: #0f3d2e;
+  --color-primary-light: #14532d;
   --color-accent: #c9a227;
+  --color-accent-light: #facc15;
   --color-primary-foreground: #ffffff;
   --color-accent-foreground: #000000;
 

@@ -1,65 +1,103 @@
-import Image from "next/image";
+import { Hero, CategoryGrid } from "@/components/layout/HomeSections";
+import { ProductGrid } from "@/features/products/components/ProductGrid";
 
 export default function Home() {
+  // Mock products for the homepage
+  const featuredProducts = [
+    {
+      id: "1",
+      name: "Organic Wildflower Honey",
+      description:
+        "Pure, raw honey sourced from the high-altitude wildflowers of the Himalayas.",
+      price: 24,
+      image:
+        "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800",
+      category: "Pantry",
+      stock: 50,
+      rating: 4.8,
+    },
+    {
+      id: "2",
+      name: "Premium A2 Desi Cow Milk",
+      description:
+        "Rich, nutritious A2 milk from free-range Desi cows. Farm fresh delivery.",
+      price: 12,
+      image:
+        "https://images.unsplash.com/photo-1464226184884-fa280b67c3ff?auto=format&fit=crop&q=80&w=800",
+      category: "Dairy",
+      stock: 100,
+      rating: 4.9,
+    },
+    {
+      id: "3",
+      name: "Royal Kashmiri Saffron",
+      description:
+        "Grade A+ hand-picked saffron threads from the valleys of Pampore.",
+      price: 45,
+      image:
+        "https://images.unsplash.com/photo-1516594798947-e65505dbb29d?auto=format&fit=crop&q=80&w=800",
+      category: "Spices",
+      stock: 20,
+      rating: 5.0,
+    },
+    {
+      id: "4",
+      name: "Artisanal Sourdough Bread",
+      description:
+        "Slow-fermented for 24 hours. Crusty outside, soft and airy inside.",
+      price: 8,
+      image:
+        "https://images.unsplash.com/photo-1506484334406-382be3894e9e?auto=format&fit=crop&q=80&w=800",
+      category: "Bakery",
+      stock: 30,
+      rating: 4.7,
+    },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="container mx-auto px-4 py-8 space-y-12">
+      <Hero />
+      <CategoryGrid />
+
+      <div>
+        <div className="mb-8 flex items-center justify-between">
+          <h3 className="text-2xl font-bold text-emerald-900 dark:text-emerald-50">
+            Best Sellers
+          </h3>
+          <button className="text-sm font-bold text-gold hover:underline">
+            View All
+          </button>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <ProductGrid products={featuredProducts} />
+      </div>
+
+      <div className="rounded-2xl bg-emerald-900 p-8 text-white lg:p-12">
+        <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
+          <div className="space-y-4 text-center lg:text-left">
+            <h2 className="text-3xl font-bold text-gold lg:text-4xl">
+              Royal Flash Sale
+            </h2>
+            <p className="max-w-md text-emerald-100">
+              Get up to 40% off on premium organic selections. Offer valid for a
+              limited time only.
+            </p>
+          </div>
+          <div className="flex gap-4">
+            <div className="flex flex-col items-center rounded-lg bg-white/10 p-4 min-w-20">
+              <span className="text-2xl font-bold text-gold">02</span>
+              <span className="text-xs uppercase text-emerald-200">Hours</span>
+            </div>
+            <div className="flex flex-col items-center rounded-lg bg-white/10 p-4 min-w-20">
+              <span className="text-2xl font-bold text-gold">45</span>
+              <span className="text-xs uppercase text-emerald-200">Mins</span>
+            </div>
+            <div className="flex flex-col items-center rounded-lg bg-white/10 p-4 min-w-20">
+              <span className="text-2xl font-bold text-gold">12</span>
+              <span className="text-xs uppercase text-emerald-200">Secs</span>
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
