@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GRID CART | Premium Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0f3e2e",
+                        "gold": "#D4AF37",
+                        "gold-light": "#F4EBD0",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#131f1b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .serif-header { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-primary overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-primary/10 px-6 lg:px-20 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary text-white p-1.5 rounded-lg">
+<svg class="w-6 h-6" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-primary text-xl font-black leading-tight tracking-tighter uppercase">GRID CART</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/5 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary">search</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary text-white relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-gold text-[10px] font-bold px-1.5 rounded-full border-2 border-white">4</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/5 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary">person</span>
+</button>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-6 lg:px-20 py-10">
+<div class="flex flex-col lg:flex-row gap-12">
+<!-- Checkout Left Side: Multi-step Process -->
+<div class="flex-1 space-y-10">
+<!-- Step Indicator -->
+<div class="flex items-center justify-between max-w-xl mx-auto mb-12"><div class="flex flex-col items-center gap-2 group">
+<div class="w-10 h-10 rounded-full bg-gold text-primary flex items-center justify-center font-bold shadow-[0_0_15px_rgba(212,175,55,0.4)]">1</div>
+<span class="text-xs font-bold uppercase tracking-wider text-primary">Address</span>
+</div>
+<div class="h-[2px] flex-1 bg-gold/30 mx-4 mt-[-20px]"></div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full border-2 border-primary/20 text-primary/40 flex items-center justify-center font-bold">2</div>
+<span class="text-xs font-bold uppercase tracking-wider text-primary/40">Slot</span>
+</div>
+<div class="h-[2px] flex-1 bg-primary/10 mx-4 mt-[-20px]"></div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full border-2 border-primary/20 text-primary/40 flex items-center justify-center font-bold">3</div>
+<span class="text-xs font-bold uppercase tracking-wider text-primary/40">Payment</span>
+</div></div>
+<!-- Section 1: Delivery Address -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="serif-header text-3xl text-primary">Delivery Address</h3>
+<button class="text-sm font-bold text-gold border-b-2 border-gold/30 hover:border-gold transition-all">ADD NEW</button>
+</div>
+<div class="relative p-6 rounded-xl border-2 border-gold bg-white shadow-xl shadow-gold/10 group cursor-pointer transition-all hover:scale-[1.01]">
+<div class="absolute top-4 right-4 text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<p class="font-bold text-lg mb-1">Sanjeev Raj G</p>
+<p class="text-primary/70 leading-relaxed max-w-md">RMD Engineering College, Kavaraipettai, Chennai, Tamil Nadu - 600044</p>
+<div class="mt-4 flex gap-3">
+<span class="px-2 py-1 bg-primary/10 rounded text-[10px] font-bold uppercase tracking-widest">Office</span>
+<span class="px-2 py-1 bg-primary/10 rounded text-[10px] font-bold uppercase tracking-widest">Default</span>
+</div>
+</div>
+</section>
+<!-- Section 2: Delivery Slots -->
+<section class="space-y-6">
+<h3 class="serif-header text-3xl text-primary">Preferred Slot</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<label class="relative cursor-pointer group">
+<input checked="" class="peer sr-only" name="slot" type="radio"/>
+<div class="p-4 rounded-lg border border-primary/10 bg-white peer-checked:border-primary peer-checked:bg-primary/5 transition-all flex flex-col items-center text-center gap-2">
+<span class="text-sm font-bold">10:00 - 10:30</span>
+<span class="text-[10px] text-primary/60 uppercase">Morning</span>
+</div>
+</label>
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="slot" type="radio"/>
+<div class="p-4 rounded-lg border border-primary/10 bg-white peer-checked:border-primary peer-checked:bg-primary/5 transition-all flex flex-col items-center text-center gap-2">
+<span class="text-sm font-bold">10:30 - 11:00</span>
+<span class="text-[10px] text-primary/60 uppercase">Morning</span>
+</div>
+</label>
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="slot" type="radio"/>
+<div class="p-4 rounded-lg border-2 border-gold/30 bg-gold/5 peer-checked:border-gold peer-checked:bg-gold/10 transition-all flex flex-col items-center text-center gap-2 overflow-hidden">
+<div class="absolute top-0 right-0 bg-gold text-[8px] font-black px-2 py-0.5 text-white uppercase tracking-tighter">Gold</div>
+<span class="text-sm font-black text-gold">Express</span>
+<span class="text-[10px] text-gold uppercase">10 Minutes</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Section 3: Payment Method -->
+<section class="space-y-6">
+<h3 class="serif-header text-3xl text-primary">Payment Mode</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="p-4 rounded-lg border border-primary/10 bg-white hover:border-primary/40 cursor-pointer flex flex-col items-center gap-3 transition-all">
+<span class="material-symbols-outlined text-primary/60 scale-125">account_balance_wallet</span>
+<span class="text-xs font-bold uppercase">UPI</span>
+</div>
+<div class="p-4 rounded-lg border border-primary/10 bg-white hover:border-primary/40 cursor-pointer flex flex-col items-center gap-3 transition-all">
+<span class="material-symbols-outlined text-primary/60 scale-125">credit_card</span>
+<span class="text-xs font-bold uppercase">Card</span>
+</div>
+<div class="p-4 rounded-lg border border-primary/10 bg-white hover:border-primary/40 cursor-pointer flex flex-col items-center gap-3 transition-all">
+<span class="material-symbols-outlined text-primary/60 scale-125">payments</span>
+<span class="text-xs font-bold uppercase">COD</span>
+</div>
+<div class="p-4 rounded-lg border border-primary/10 bg-white hover:border-primary/40 cursor-pointer flex flex-col items-center gap-3 transition-all">
+<span class="material-symbols-outlined text-primary/60 scale-125">wallet</span>
+<span class="text-xs font-bold uppercase">Wallet</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Sticky Order Summary Right Side -->
+<div class="w-full lg:w-[400px]">
+<div class="sticky top-28 p-8 rounded-xl bg-primary text-white border-4 border-gold shadow-[0_20px_50px_rgba(0,0,0,0.3),0_0_20px_rgba(212,175,55,0.2)] space-y-8">
+<div class="space-y-1">
+<h4 class="serif-header text-2xl">Order Summary</h4>
+<p class="text-xs text-white/60 tracking-widest uppercase">3 items in your basket</p>
+</div>
+<div class="space-y-4 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-white/10 bg-center bg-cover border border-white/5" data-alt="Fresh yellow organic bananas bunch" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnDgL4Is1Yo8WmzFXGXeKsI8EcS5OlrGQ-ibzR34WCaJC4oUxgokT2d8hL375OH2jG56eB3pqopYMCFrfPL-0lGNmMmeM7uiw9zk2hRn07SKZsbsCwuDUYZBndleaJc83j-bfPnCre1aKvrNrBYSkl5h9qi0VWNMJbcJ5ygDk7ZAvs02LesWy5Ae9u0RFpM073tCkdBWMWl_E1rhXkxrtDd_bBtA8E8GM1c-HsLlA0WMpnSHiyrMyKYqFZAswsGG24fvuDcSg5EfI");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold truncate">Organic Bananas</p>
+<p class="text-xs text-white/60">2x • ₹98</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-white/10 bg-center bg-cover border border-white/5" data-alt="Extra virgin olive oil in glass bottle" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB45AD91CEmoPXfxIxSnNsjhH4ejRpFxpELWTi5OYBv0gnJZs1m6YuzSXO1ur2pLQzUVOfXw5HsEF4NhC9v21r2sYr2VuO63IcOBXnpDLB4PE2pVAMhvyO2Sy_o5n4jNwf5zkBzDVgTU2EBjIg47n41Jd1GSmVTw5-7AfWeh6q77_7eyf1YG_8lAS1TNb-WcW1_ZP-zx8ZiWHlQPUvXL4yA__Ngl8pcuEe0z7mxYrWFb_3_Ni224KV9uvlzHoFV-GcZM9y6I_rUqU8");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold truncate">Extra Virgin Olive Oil</p>
+<p class="text-xs text-white/60">1x • ₹499</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-white/10 bg-center bg-cover border border-white/5" data-alt="Homemade almond cookies on plate" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYvwYuNvtuLPqWuupSeWxmpiPbCiNnBKnguM-5Unsef9mnMjmhRQ2KDyghleQHqXy0DSyc0l8-z-gQEOcjfCkxWpiRHugNtoSgIw8qHPZLV2JQzhR1HyPDD4tU8ebhLB17QPv7_jTXdIbvxOyQkHR2VZKcSM1-SxKUQO9grfzcr5uZPZN4RTVVF9kSiZVSxLcopAtfd5u3Zcxo23y-rz9jPzYC6YXrdu-C9Q25NEXykDOC-Z_ps4up0ZA0fG6Dk_DTOD5NKLLYm4Y");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold truncate">Gourmet Almond Cookies</p>
+<p class="text-xs text-white/60">1x • ₹199</p>
+</div>
+</div>
+</div>
+<div class="pt-6 border-t border-white/10 space-y-3">
+<div class="flex justify-between text-sm">
+<span class="text-white/70">Subtotal</span>
+<span>₹796</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gold text-sm">confirmation_number</span>
+<span class="text-gold font-bold">GOLD10 Applied</span>
+</div>
+<span class="text-gold font-bold">-₹79</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-white/70">Delivery Fee</span>
+<span>₹25</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-white/70">GST (5%)</span>
+<span>₹18</span>
+</div>
+</div>
+<div class="pt-6 border-t border-white/20 flex justify-between items-end">
+<div class="space-y-1">
+<p class="text-[10px] uppercase font-bold text-white/50 tracking-widest leading-none">Total Payable</p>
+<p class="text-4xl font-black text-white leading-none">₹760</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-gold font-bold uppercase bg-gold/20 px-2 py-1 rounded">Estimated 12 min</p>
+</div>
+</div>
+<button class="w-full py-5 rounded-lg bg-gradient-to-r from-gold via-[#F4EBD0] to-gold text-primary font-black text-sm uppercase tracking-[0.2em] shadow-lg shadow-gold/40 hover:brightness-110 active:scale-[0.98] transition-all">
+                        Complete Order
+                    </button>
+<div class="flex items-center justify-center gap-4 opacity-50">
+<span class="material-symbols-outlined text-xs">verified_user</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Secure Bank-Level Checkout</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Slide-in Cart Overlay (Simplified trigger shown in background layout) -->
+<!-- This would normally be toggled, currently showing static structured visual as requested -->
+<div class="fixed inset-0 z-50 pointer-events-none overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 backdrop-blur-sm opacity-0 transition-opacity"></div>
+<div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-[-20px_0_50px_rgba(0,0,0,0.1)] pointer-events-auto transform translate-x-full transition-transform ease-out duration-500 translate-x-0">
+<div class="flex flex-col h-full">
+<!-- Cart Header -->
+<div class="px-8 pt-10 pb-6 border-b border-primary/5 flex items-center justify-between">
+<div>
+<h2 class="serif-header text-3xl text-primary">Your Cart</h2>
+<p class="text-xs font-bold text-primary/40 uppercase tracking-widest mt-1">Arrival in 12 mins</p>
+</div>
+<button class="size-10 rounded-full border border-primary/10 flex items-center justify-center text-primary/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Cart Items Scroll -->
+<div class="flex-1 overflow-y-auto px-8 py-8 space-y-8">
+<!-- Item 1 -->
+<div class="flex items-center gap-5">
+<div class="size-20 rounded-xl bg-center bg-cover bg-primary/5 shadow-sm" data-alt="Fresh yellow organic bananas" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDQEozduKLU5DHW-bFIJE5IoY94ADpOmK6EJq4P0UGcjdZJzCOhoOKEjStAcQZGzYRuFQ_-itS_08LJnXj46357CAq4SgbCNixJLrw7PTJVG54ohV950jBCabYIl0zc6YLbs_ZlRXS0HfWnXStHVU046qVqYMNkFeMRGORD0Gd_fMtGgWKe69MoworJ2mS8URtz4nyos9-DunlbL2LVUNKdkExkdOYLJb6dLqGOYjS_GekYKgIZ4uk2Mx5VzU6-Lti9UjpZ5jNEQZg");'></div>
+<div class="flex-1">
+<p class="text-base font-bold text-primary mb-0.5">Organic Bananas</p>
+<p class="text-xs text-primary/50 mb-3">500g Pack</p>
+<div class="flex items-center gap-3">
+<div class="flex items-center border border-primary/10 rounded-lg p-1 bg-background-light">
+<button class="size-6 flex items-center justify-center text-primary/40">-</button>
+<span class="px-2 text-sm font-bold w-6 text-center">2</span>
+<button class="size-6 flex items-center justify-center text-primary">+</button>
+</div>
+<span class="font-bold text-sm">₹98</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-5">
+<div class="size-20 rounded-xl bg-center bg-cover bg-primary/5 shadow-sm" data-alt="Extra virgin olive oil bottle" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCKnK4kbPd31ZDO9amc8WW1OCj75ritoOVV8owVemriODKDBuQV_3Kb4XXMCtOt620KtPN7O1RGmUSz1-mce7k8y7BaMLLqVNzP1XZqXr_cfuUlXxMEJiqS527hCAkobdOXkVL5u9UtH7o02iMDWbB0GwO_o45HgnivhM0NexiyHYa7Bw4WtG5CBQo5ocsoeZNTHB1F7hGTFO25QvLj15ColiLeyF2UbajgJ54e2Q5kYhWxeVsVoPmjfNLN7AnWcuiuv3G6K0bDi3w");'></div>
+<div class="flex-1">
+<p class="text-base font-bold text-primary mb-0.5">Olive Oil</p>
+<p class="text-xs text-primary/50 mb-3">1L Premium Bottle</p>
+<div class="flex items-center gap-3">
+<div class="flex items-center border border-primary/10 rounded-lg p-1 bg-background-light">
+<button class="size-6 flex items-center justify-center text-primary/40">-</button>
+<span class="px-2 text-sm font-bold w-6 text-center">1</span>
+<button class="size-6 flex items-center justify-center text-primary">+</button>
+</div>
+<span class="font-bold text-sm">₹499</span>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-5">
+<div class="size-20 rounded-xl bg-center bg-cover bg-primary/5 shadow-sm" data-alt="Gourmet almond cookies" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAsVOTPnUmwuyPwnjIkZAkwcbKK_L8dg2keO-QSqzrERc9RuagKnj1xz4Bw8IjjtvbDGLvEBykaUR7VCyW-exUVk34_8UtcGKTtuN-Ae7uLk0y5cCODevCR_dQh2f6T08ZHV28Mkc3ATaVP0RS5tLfScof-Uyb8WDPodD95Q2_uz8vWMxcRQm7p4TufMzuC351o4Lkns87C_5fruEysOCJrQd6Rts_VMuuoPjp03r5qhhM2lGA56DTmJiujLN5bz10MQXad-E54z9Q");'></div>
+<div class="flex-1">
+<p class="text-base font-bold text-primary mb-0.5">Almond Cookies</p>
+<p class="text-xs text-primary/50 mb-3">250g Jar</p>
+<div class="flex items-center gap-3">
+<div class="flex items-center border border-primary/10 rounded-lg p-1 bg-background-light">
+<button class="size-6 flex items-center justify-center text-primary/40">-</button>
+<span class="px-2 text-sm font-bold w-6 text-center">1</span>
+<button class="size-6 flex items-center justify-center text-primary">+</button>
+</div>
+<span class="font-bold text-sm">₹199</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cart Footer -->
+<div class="p-8 bg-background-light space-y-6">
+<div class="space-y-3">
+<div class="flex justify-between items-center bg-gold/10 p-3 rounded-lg border border-gold/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gold">local_activity</span>
+<span class="text-xs font-black text-primary uppercase">GOLD10 APPLIED</span>
+</div>
+<span class="text-xs font-black text-gold">-₹79</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="text-sm font-bold text-primary/50 uppercase tracking-widest">Total Value</span>
+<span class="text-4xl serif-header text-primary">₹760</span>
+</div>
+</div>
+<button class="w-full bg-gradient-to-r from-gold via-[#F4EBD0] to-gold py-5 rounded-lg text-primary font-black uppercase tracking-[0.2em] shadow-xl shadow-gold/30 flex items-center justify-center gap-3 hover:brightness-110 transition-all active:scale-[0.98]">
+                        Proceed to Checkout
+                        <span class="material-symbols-outlined">chevron_right</span>
+</button>
+<div class="flex justify-center gap-6 grayscale opacity-50">
+<img class="h-4" data-alt="PayPal Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeqIBtXtil9bwN385qAMKqdK82Y2UtpLtdAbJpJKi5ClVXegzFT-9cUeMaL5IlybRC-PkUphkpRS0DvLErnOA8_Rma2Dy75csdOBLrJiIpYZERrgujl906qyDKAevoZ1lfKHi4ig9FKnKJ8zk0Iir8fcDNFGS9vxr7GBnKrXkVbtncEGmWZMYe9H6qJKwAuGktXK8h0XzbhLY-kGcEbNi7IdWFSYFcZQQCrvCZ7XLWy3f_-AqEyF9Mbn7COPKDPHku7a6BqpWbOs4"/>
+<img class="h-3" data-alt="Visa Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJQVETfwKKYA9pbiOzabCWy0I9h8NzVNKR12QKr_OzfkWCdaFZRNOMQLt7Ic--WTpo__CjMGaV7UCdkMjrV4UpQegnVqYf1tge9uejcpz-MtBKS1tfH8eKYTPhoDkn4GDxvQyiLlbYlJcSsJw2--tuDJ5oU7Ar5WOvZ6xcxAZisC6RLde-FDWVmKiGBSH578NnPlZFmfv7_-GEhvNl_8VEAfXLwVcHTdD5Duk1hEoORSPLwjB5Y1msV0_WDrUaQlohl7zfPSbmV0c"/>
+<img class="h-4" data-alt="Mastercard Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcY8T-zzSF4qb9oeq7i9mKZ2pxu--QCA6VaoEEIE-JlmJRCLlxlLew-OMT9Ssntfmvs3CAo6iDjOomww8H8V7QDm0mG6GZ2cFibMzlnA9kFi-uGSOPXOlxTlS6GuJ315RjDUaAwSm5PoIPTRLbeRS9DANjA9A9AcHTwnysfKxJMsI0ehUX1pCuH3QCvG8lGIjUwTvaOK5l1Tb74IsenffmnFBPsVnez9GIeKMakTD_5rmXnGBOwM-kYhrzKUoQe9la1wRgDQGLgf8"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

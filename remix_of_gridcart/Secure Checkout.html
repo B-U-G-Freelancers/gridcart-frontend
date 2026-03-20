@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GridCart Secure Checkout</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#D4AF37","primary-dark": "#B5952F",
+                        "header-emerald": "#0F3D3E","action-green": "#14532D","action-green-hover": "#104123",
+                        "background-light": "#FDFCF8",
+                        "background-dark": "#0F1C18",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#152623",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-header-emerald backdrop-blur-md px-6 py-4 lg:px-12">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded bg-header-emerald text-primary">
+<span class="material-symbols-outlined text-xl">grid_view</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-header-emerald dark:text-primary">GridCart</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-header-emerald/90 dark:text-primary/90 uppercase tracking-wider">
+<span class="material-symbols-outlined text-lg">lock</span>
+                Secure Checkout
+            </span>
+<a class="text-sm font-medium text-slate-500 hover:text-header-emerald dark:text-slate-300 dark:hover:text-primary transition-colors" href="#">Return to Cart</a>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1440px] mx-auto p-4 lg:p-8">
+<div class="lg:grid lg:grid-cols-12 lg:gap-12 items-start">
+<div class="lg:col-span-7 flex flex-col gap-6">
+<div class="mb-4">
+<h2 class="text-3xl font-extrabold tracking-tight mb-2 text-header-emerald dark:text-white">Checkout</h2>
+<p class="text-slate-500 dark:text-slate-400">Complete your order details below.</p>
+</div>
+<details class="group bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden" open="">
+<summary class="flex items-center justify-between p-6 cursor-pointer select-none bg-surface-light dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center size-8 rounded-full bg-primary text-white font-bold text-sm shadow-sm">1</div>
+<h3 class="text-lg font-semibold text-header-emerald dark:text-white">Shipping Address</h3>
+</div>
+<span class="material-symbols-outlined transform transition-transform group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<div class="p-6 pt-0 border-t border-slate-100 dark:border-slate-700/50 mt-2">
+<form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-1.5 md:col-span-1">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">First Name</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="Jane" type="text"/>
+</div>
+<div class="space-y-1.5 md:col-span-1">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">Last Name</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="Doe" type="text"/>
+</div>
+<div class="space-y-1.5 md:col-span-2">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">Email Address</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="jane@example.com" type="email"/>
+</div>
+<div class="space-y-1.5 md:col-span-2">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">Street Address</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="123 Luxury Lane" type="text"/>
+</div>
+<div class="space-y-1.5 md:col-span-1">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">City</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="New York" type="text"/>
+</div>
+<div class="space-y-1.5 md:col-span-1">
+<div class="flex gap-4">
+<div class="flex-1">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">State</label>
+<select class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary">
+<option>NY</option>
+<option>CA</option>
+<option>TX</option>
+</select>
+</div>
+<div class="flex-1">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">Zip</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="10001" type="text"/>
+</div>
+</div>
+</div>
+<div class="md:col-span-2 pt-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="rounded border-slate-300 text-action-green focus:ring-action-green" type="checkbox"/>
+<span class="text-sm text-slate-600 dark:text-slate-300">Save this information for next time</span>
+</label>
+</div>
+</form>
+</div>
+</details>
+<details class="group bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+<summary class="flex items-center justify-between p-6 cursor-pointer select-none bg-surface-light dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center size-8 rounded-full border-2 border-slate-300 dark:border-slate-600 text-slate-500 font-bold text-sm bg-transparent group-open:bg-primary group-open:text-white group-open:border-primary transition-colors">2</div>
+<h3 class="text-lg font-semibold text-header-emerald dark:text-white">Shipping Method</h3>
+</div>
+<span class="material-symbols-outlined transform transition-transform group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<div class="p-6 pt-0 border-t border-slate-100 dark:border-slate-700/50 mt-2">
+<div class="grid gap-4">
+<label class="relative flex items-center justify-between p-4 border rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors border-primary bg-primary/5 dark:bg-primary/10">
+<div class="flex items-center gap-3">
+<input checked="" class="size-4 text-action-green border-slate-300 focus:ring-action-green" name="shipping" type="radio"/>
+<div>
+<p class="font-semibold text-header-emerald dark:text-white">Standard Delivery</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">4-6 Business Days</p>
+</div>
+</div>
+<span class="font-bold text-header-emerald dark:text-white">Free</span>
+</label>
+<label class="relative flex items-center justify-between p-4 border border-slate-200 dark:border-slate-700 rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<input class="size-4 text-action-green border-slate-300 focus:ring-action-green" name="shipping" type="radio"/>
+<div>
+<p class="font-semibold text-header-emerald dark:text-white">Express Delivery</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">1-2 Business Days</p>
+</div>
+</div>
+<span class="font-bold text-header-emerald dark:text-white">$15.00</span>
+</label>
+</div>
+</div>
+</details>
+<details class="group bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden" open="">
+<summary class="flex items-center justify-between p-6 cursor-pointer select-none bg-surface-light dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center size-8 rounded-full border-2 border-slate-300 dark:border-slate-600 text-slate-500 font-bold text-sm bg-transparent group-open:bg-primary group-open:text-white group-open:border-primary transition-colors">3</div>
+<h3 class="text-lg font-semibold text-header-emerald dark:text-white">Payment Details</h3>
+</div>
+<span class="material-symbols-outlined transform transition-transform group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<div class="p-6 pt-0 border-t border-slate-100 dark:border-slate-700/50 mt-2">
+<div class="flex p-1 mb-6 bg-slate-100 dark:bg-slate-800 rounded-lg">
+<button class="flex-1 py-2 text-sm font-semibold rounded shadow-sm bg-white dark:bg-slate-700 text-header-emerald dark:text-white border border-slate-200 dark:border-slate-600">Credit Card</button>
+<button class="flex-1 py-2 text-sm font-semibold rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">PayPal</button>
+</div>
+<form class="space-y-4">
+<div class="space-y-1.5">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">Card Number</label>
+<div class="relative">
+<input class="w-full pl-10 rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="0000 0000 0000 0000" type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">credit_card</span>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex gap-1">
+<span class="material-symbols-outlined text-slate-400 text-lg">lock</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">Expiration</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="MM / YY" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300 flex items-center gap-1">
+                                        CVC 
+                                        <span class="material-symbols-outlined text-sm text-slate-400 cursor-help" title="3 digits on back of card">help</span>
+</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="123" type="text"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-medium text-header-emerald dark:text-slate-300">Cardholder Name</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="Name on card" type="text"/>
+</div>
+</form>
+<div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700/50">
+<button class="w-full flex items-center justify-center gap-2 bg-action-green hover:bg-action-green-hover text-white font-bold py-3.5 px-6 rounded-lg shadow-md hover:shadow-lg transition-all transform active:scale-[0.99] border border-transparent">
+<span class="material-symbols-outlined">lock</span>
+                                Pay $363.00
+                            </button>
+<p class="text-center text-xs text-slate-500 dark:text-slate-400 mt-3 flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-sm text-action-green">encrypted</span>
+                                Your payment information is encrypted and secure.
+                            </p>
+</div>
+</div>
+</details>
+</div>
+<div class="lg:col-span-5 mt-8 lg:mt-0">
+<div class="sticky top-24">
+<div class="bg-white dark:bg-surface-dark rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-header-emerald via-primary to-header-emerald"></div>
+<h2 class="text-lg font-bold mb-6 flex items-center justify-between text-header-emerald dark:text-white">
+                            Order Summary
+                            <span class="text-sm font-normal text-slate-500 dark:text-slate-400">2 Items</span>
+</h2>
+<div class="flex flex-col gap-6 mb-6">
+<div class="flex gap-4">
+<div class="relative size-20 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-700 bg-slate-50">
+<img alt="Premium Leather handbag in tan color" class="object-cover w-full h-full" data-alt="Premium Leather handbag in tan color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN0U4wg_NLbBeZ4IZIaD_Z-8GByVcqZZmY_omZFHFOY6GGlkrktY_HStYFyRbx0I75sCThUq3INBpvFe5_Oospvj-Uj4MQGm00Ab_KTEvQa6zDEkQK_cXOQDDvDUNgbeWfCqJsOuhmSWGNfkDf-ePFiHRINzFPqVScnaF81cV_CYk0T3Vyihf-zU4Pt4uh1LrRYJWDistlrWsUCKEGzACtTV0C_6ElOcabb0KTmZ6LkOOtm7U3SjU8Ie4H8UC8JF2gOo68IYop4hI"/>
+<span class="absolute top-0 right-0 bg-header-emerald text-white text-[10px] font-bold px-1.5 py-0.5 rounded-bl">x1</span>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<div class="flex justify-between items-start">
+<h3 class="font-semibold text-sm text-header-emerald dark:text-white">Premium Leather Bag</h3>
+<p class="font-semibold text-sm text-header-emerald dark:text-white">$250.00</p>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Color: Tan</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="relative size-20 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-700 bg-slate-50">
+<img alt="Silk scarf with floral pattern" class="object-cover w-full h-full" data-alt="Silk scarf with floral pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZsr_7xkYLabcPbNYhe5WuLbKueccteUeTzqBQxgQslj8iFKQZve-rfUjIfN4f2aTgIEaNysFTdVoRpP37WJjUbJubS8C4g4iVVV3gObTE_J26zargSqbOiMk3eH23OFAvEim7oZe7iw5xC1mSuL7SVXg_ewvVsg54FW2as0duGI1-Y6-DVp6w0HUqOSbvDI5RllbkWi84DQ4lI3m3lccLrO3z9AzgMzNbuInx0gNH_C5NnSj7RIfJ-BYq4DOA4BUIxZNOr8xOXes"/>
+<span class="absolute top-0 right-0 bg-header-emerald text-white text-[10px] font-bold px-1.5 py-0.5 rounded-bl">x1</span>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<div class="flex justify-between items-start">
+<h3 class="font-semibold text-sm text-header-emerald dark:text-white">Silk Scarf</h3>
+<p class="font-semibold text-sm text-header-emerald dark:text-white">$85.00</p>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Material: 100% Silk</p>
+</div>
+</div>
+</div>
+<hr class="border-slate-200 dark:border-slate-700 mb-6"/>
+<div class="mb-6">
+<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2 block">Promo Code</label>
+<div class="flex gap-2">
+<input class="flex-1 rounded-lg border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm py-2 px-3 focus:border-primary focus:ring-primary" placeholder="Enter code" type="text"/>
+<button class="bg-header-emerald hover:bg-header-emerald/90 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">Apply</button>
+</div>
+</div>
+<hr class="border-slate-200 dark:border-slate-700 mb-6"/>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-sm text-slate-600 dark:text-slate-300">
+<span>Subtotal</span>
+<span class="font-medium">$335.00</span>
+</div>
+<div class="flex justify-between text-sm text-slate-600 dark:text-slate-300">
+<span>Shipping</span>
+<span class="font-medium text-primary">Free</span>
+</div>
+<div class="flex justify-between text-sm text-slate-600 dark:text-slate-300">
+<span>Tax</span>
+<span class="font-medium">$28.00</span>
+</div>
+</div>
+<div class="flex justify-between items-end border-t border-slate-200 dark:border-slate-700 pt-6">
+<div>
+<span class="block text-sm text-slate-500 dark:text-slate-400">Total due</span>
+<span class="text-2xl font-black text-header-emerald dark:text-white tracking-tight">$363.00</span>
+</div>
+<span class="text-xs text-slate-400 mb-1">USD</span>
+</div>
+</div>
+<div class="mt-6 flex justify-center gap-4 text-slate-400">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-lg text-primary">verified_user</span>
+<span class="text-xs font-medium">Money-back guarantee</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-lg text-primary">support_agent</span>
+<span class="text-xs font-medium">24/7 Support</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-12 py-8 border-t border-slate-200 dark:border-slate-800 text-center bg-white dark:bg-surface-dark">
+<p class="text-sm text-slate-500 dark:text-slate-400">© 2023 GridCart Inc. All rights reserved.</p>
+<div class="flex justify-center gap-4 mt-4 text-xs text-slate-400 dark:text-slate-500">
+<a class="hover:underline hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:underline hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</body></html>

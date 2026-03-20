@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GridCart Shopping Cart</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0f3e2e",
+                        "emerald-deep": "#0F3D3E",
+                        "green-rich": "#14532D",
+                        "gold-accent": "#D4AF37",
+                        "background-light": "#F9FAFB",
+                        "background-dark": "#131f1b",
+                        "neutral-light": "#eef2f1",
+                        "neutral-dark": "#1f2e2a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col antialiased selection:bg-primary/20">
+<header class="sticky top-0 z-50 w-full bg-white dark:bg-neutral-dark border-b border-gray-200 dark:border-neutral-700 shadow-sm">
+<div class="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-3 text-emerald-deep group" href="#">
+<div class="size-8 text-emerald-deep transition-transform group-hover:scale-110">
+<svg class="h-full w-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M39.998 12.236C39.9944 12.2537 39.9875 12.2845 39.9748 12.3294C39.9436 12.4399 39.8949 12.5741 39.8346 12.7175C39.8168 12.7597 39.7989 12.8007 39.7813 12.8398C38.5103 13.7113 35.9788 14.9393 33.7095 15.4811C30.9875 16.131 27.6413 16.5217 24 16.5217C20.3587 16.5217 17.0125 16.131 14.2905 15.4811C12.0012 14.9346 9.44505 13.6897 8.18538 12.8168C8.17384 12.7925 8.16216 12.767 8.15052 12.7408C8.09919 12.6249 8.05721 12.5114 8.02977 12.411C8.00356 12.3152 8.00039 12.2667 8.00004 12.2612C8.00004 12.261 8 12.2607 8.00004 12.2612C8.00004 12.2359 8.0104 11.9233 8.68485 11.3686C9.34546 10.8254 10.4222 10.2469 11.9291 9.72276C14.9242 8.68098 19.1919 8 24 8C28.8081 8 33.0758 8.68098 36.0709 9.72276C37.5778 10.2469 38.6545 10.8254 39.3151 11.3686C39.9006 11.8501 39.9857 12.1489 39.998 12.236ZM4.95178 15.2312L21.4543 41.6973C22.6288 43.5809 25.3712 43.5809 26.5457 41.6973L43.0534 15.223C43.0709 15.1948 43.0878 15.1662 43.104 15.1371L41.3563 14.1648C43.104 15.1371 43.1038 15.1374 43.104 15.1371L43.1051 15.135L43.1065 15.1325L43.1101 15.1261L43.1199 15.1082C43.1276 15.094 43.1377 15.0754 43.1497 15.0527C43.1738 15.0075 43.2062 14.9455 43.244 14.8701C43.319 14.7208 43.4196 14.511 43.5217 14.2683C43.6901 13.8679 44 13.0689 44 12.2609C44 10.5573 43.003 9.22254 41.8558 8.2791C40.6947 7.32427 39.1354 6.55361 37.385 5.94477C33.8654 4.72057 29.133 4 24 4C18.867 4 14.1346 4.72057 10.615 5.94478C8.86463 6.55361 7.30529 7.32428 6.14419 8.27911C4.99695 9.22255 3.99999 10.5573 3.99999 12.2609C3.99999 13.1275 4.29264 13.9078 4.49321 14.3607C4.60375 14.6102 4.71348 14.8196 4.79687 14.9689C4.83898 15.0444 4.87547 15.1065 4.9035 15.1529C4.91754 15.1762 4.92954 15.1957 4.93916 15.2111L4.94662 15.223L4.95178 15.2312ZM35.9868 18.996L24 38.22L12.0131 18.996C12.4661 19.1391 12.9179 19.2658 13.3617 19.3718C16.4281 20.1039 20.0901 20.5217 24 20.5217C27.9099 20.5217 31.5719 20.1039 34.6383 19.3718C35.082 19.2658 35.5339 19.1391 35.9868 18.996Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-2xl font-bold leading-tight tracking-[-0.015em] text-emerald-deep">GridCart</h2>
+</a>
+<nav class="hidden md:flex items-center gap-8 ml-4">
+<a class="text-sm font-medium text-emerald-deep hover:text-gold-accent transition-colors" href="#">Shop</a>
+<a class="text-sm font-medium text-emerald-deep hover:text-gold-accent transition-colors" href="#">Collections</a>
+<a class="text-sm font-medium text-emerald-deep hover:text-gold-accent transition-colors" href="#">About</a>
+<a class="text-sm font-medium text-emerald-deep hover:text-gold-accent transition-colors" href="#">Journal</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex relative w-64 group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-emerald-deep">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-full leading-5 bg-gray-50 text-emerald-deep placeholder-gray-400 focus:ring-1 focus:ring-emerald-deep focus:border-emerald-deep sm:text-sm transition-all" placeholder="Search products..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="relative p-2 rounded-full hover:bg-gray-100 text-emerald-deep transition-colors">
+<span class="material-symbols-outlined text-[24px]">favorite</span>
+</button>
+<button class="relative p-2 rounded-full hover:bg-gray-100 text-emerald-deep transition-colors">
+<span class="material-symbols-outlined text-[24px]">shopping_cart</span>
+<span class="absolute top-1 right-0.5 bg-emerald-deep text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">3</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden ml-2 ring-2 ring-transparent hover:ring-gold-accent transition-all cursor-pointer">
+<img alt="User Avatar Profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNx-Vc8He_b2jkpm90Un5efQ-ykM9yrKCFLUdQNeeBBldGbXXisaPCTsvVGveBjutYSH-aVNE6npmxsr-Olzc_HET3dx70AKCYFAbeDqu4wrqKTupPlMgI_fzKToj81CcpqHbCf9REbvl5F7Kxgkk7vUw2FSHzsIZHq8VoBsat72a2eJGQxQWdRdj1OkWMz7ooLKbZQBOdqkLARo9XxjzNKDLXtWpOsSm-i6pPoXJvvMxZ4BVCZ_72ALLohPVZlt2w_JB4Y3AD8t4"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1400px] mx-auto px-6 py-10">
+<div class="mb-10">
+<h1 class="text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">Shopping Cart</h1>
+<p class="text-slate-500 dark:text-slate-400">You have 3 items in your cart</p>
+</div>
+<div class="flex flex-col lg:flex-row gap-12">
+<div class="flex-grow flex flex-col gap-6">
+<div class="hidden md:grid grid-cols-12 gap-4 pb-4 border-b border-neutral-200 dark:border-neutral-700 text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+<div class="col-span-6">Product</div>
+<div class="col-span-2 text-center">Price</div>
+<div class="col-span-2 text-center">Quantity</div>
+<div class="col-span-2 text-right">Total</div>
+</div>
+<div class="group relative flex flex-col md:grid md:grid-cols-12 gap-6 items-start md:items-center py-6 border-b border-neutral-200 dark:border-neutral-700 last:border-0 bg-white dark:bg-neutral-dark md:bg-transparent md:dark:bg-transparent p-4 md:p-0 rounded-xl md:rounded-none shadow-sm md:shadow-none">
+<div class="col-span-6 flex gap-4 w-full">
+<div class="relative shrink-0 w-24 h-28 rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+<img alt="Dark blue knitted premium merino wool sweater folded" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTVCpydC-lZd8I0HnYNOyQ2zBZpkShDWH25PYdg4jsRRoQbQzFUa-wafWOVOyJKIwiT1wvRM1JOQCvhkYrQ5MeZ0DoCHYPD5j4iXTcNn1FNRZSkPWZBE5CAcupTG7QPPu3rPS85vppYbk2JB52ZFQaIXs8UsMP9L-13CuHpY7anJpX0SjY2P76FwYxlZ0LpxzxXmhkoon1j7IqVYctEM5uJihe3j8O0e184_9FbQ5gybRpeMymN4PhwUnxGVeqO1jLCyF14wbzDCQ"/>
+</div>
+<div class="flex flex-col justify-between py-1">
+<div>
+<h3 class="font-semibold text-lg text-slate-900 dark:text-white">Premium Merino Wool Sweater</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Navy Blue • Size L</p>
+<p class="text-xs text-green-600 font-medium mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                In Stock
+                            </p>
+</div>
+<button class="text-sm text-slate-400 hover:text-red-500 transition-colors flex items-center gap-1 mt-3 w-fit md:hidden">
+<span class="material-symbols-outlined text-[16px]">delete</span> Remove
+                        </button>
+</div>
+</div>
+<div class="col-span-2 text-center hidden md:block">
+<span class="text-slate-900 dark:text-slate-200 font-medium">$120.00</span>
+</div>
+<div class="col-span-2 flex justify-center w-full md:w-auto mt-4 md:mt-0">
+<div class="flex items-center justify-between md:justify-center border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 px-2 py-1 w-full md:w-auto">
+<button class="p-1 text-slate-500 hover:text-gold-accent transition-colors disabled:opacity-50">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<input class="w-12 text-center bg-transparent border-none text-slate-900 dark:text-white font-medium focus:ring-0 p-0 text-sm" readonly="" type="text" value="1"/>
+<button class="p-1 text-slate-500 hover:text-gold-accent transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<div class="col-span-2 flex flex-col items-end justify-between h-full w-full md:w-auto mt-4 md:mt-0">
+<div class="flex items-center justify-between w-full md:justify-end">
+<span class="md:hidden text-slate-500 dark:text-slate-400">Total:</span>
+<span class="text-lg font-bold text-emerald-deep dark:text-white">$120.00</span>
+</div>
+<button class="hidden md:flex text-sm text-slate-400 hover:text-red-500 transition-colors items-center gap-1 mt-auto pt-2">
+<span class="material-symbols-outlined text-[18px]">close</span> Remove
+                    </button>
+</div>
+</div>
+<div class="group relative flex flex-col md:grid md:grid-cols-12 gap-6 items-start md:items-center py-6 border-b border-neutral-200 dark:border-neutral-700 last:border-0 bg-white dark:bg-neutral-dark md:bg-transparent md:dark:bg-transparent p-4 md:p-0 rounded-xl md:rounded-none shadow-sm md:shadow-none">
+<div class="col-span-6 flex gap-4 w-full">
+<div class="relative shrink-0 w-24 h-28 rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+<img alt="Tan leather weekend travel bag on white background" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI3GL89WapAkL2OJoDgMlyRSBGXcvsiFmXrs2oJB8wZ50bbiWtumHCDKlO2TQXl-cH3gqHTqTxctqb5y815XgkF_O0HgBPwmfmhAK6xgG9fz2pT2mBbZhTJEr0YYgUIoC815KFpHy3YuKGQ9HrWjECtQ4b2yq8lnvivi6UdHnZ305ZOTLWX7DBVAIar6uimMhHRHfEUYpanoQJTJXUrooIrh-XWimNX7dp1IjIbFvZslReqN0L8ILT8OgSxyXfjlI1kVeHbYsll4w"/>
+</div>
+<div class="flex flex-col justify-between py-1">
+<div>
+<h3 class="font-semibold text-lg text-slate-900 dark:text-white">Leather Weekend Bag</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Tan • One Size</p>
+</div>
+<button class="text-sm text-slate-400 hover:text-red-500 transition-colors flex items-center gap-1 mt-3 w-fit md:hidden">
+<span class="material-symbols-outlined text-[16px]">delete</span> Remove
+                        </button>
+</div>
+</div>
+<div class="col-span-2 text-center hidden md:block">
+<span class="text-slate-900 dark:text-slate-200 font-medium">$350.00</span>
+</div>
+<div class="col-span-2 flex justify-center w-full md:w-auto mt-4 md:mt-0">
+<div class="flex items-center justify-between md:justify-center border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 px-2 py-1 w-full md:w-auto">
+<button class="p-1 text-slate-500 hover:text-gold-accent transition-colors">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<input class="w-12 text-center bg-transparent border-none text-slate-900 dark:text-white font-medium focus:ring-0 p-0 text-sm" readonly="" type="text" value="1"/>
+<button class="p-1 text-slate-500 hover:text-gold-accent transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<div class="col-span-2 flex flex-col items-end justify-between h-full w-full md:w-auto mt-4 md:mt-0">
+<div class="flex items-center justify-between w-full md:justify-end">
+<span class="md:hidden text-slate-500 dark:text-slate-400">Total:</span>
+<span class="text-lg font-bold text-emerald-deep dark:text-white">$350.00</span>
+</div>
+<button class="hidden md:flex text-sm text-slate-400 hover:text-red-500 transition-colors items-center gap-1 mt-auto pt-2">
+<span class="material-symbols-outlined text-[18px]">close</span> Remove
+                    </button>
+</div>
+</div>
+<div class="group relative flex flex-col md:grid md:grid-cols-12 gap-6 items-start md:items-center py-6 border-b border-neutral-200 dark:border-neutral-700 last:border-0 bg-white dark:bg-neutral-dark md:bg-transparent md:dark:bg-transparent p-4 md:p-0 rounded-xl md:rounded-none shadow-sm md:shadow-none">
+<div class="col-span-6 flex gap-4 w-full">
+<div class="relative shrink-0 w-24 h-28 rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+<img alt="Minimalist glass jar scented candle with oakmoss label" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBqclwQfNbqyZh7ZOHuSmW4dpfnwBwF_sQbXPxntXEIHswsS4WW9-IFotjB8ptjKvoxsbbaGoH37eLI9HmoNzydNF84JysqnQ1m77WhRClfH1aLAa7E_52xNlfKHQ0TUHWB4OKofSLySuNpd9ogZFavta4z5QPl_Bk-Si5ViPfrZeS-MU9Fl4KdwW0YHk9BLd6O7f9HvPOAOe4UUkxLg7ez3CK0JohiSp8fDbaMmhAyUeAmlJsBO6kjH3USPyf20u5nAM8iGFzChE"/>
+</div>
+<div class="flex flex-col justify-between py-1">
+<div>
+<h3 class="font-semibold text-lg text-slate-900 dark:text-white">Scented Candle - Oakmoss</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Standard Size</p>
+<p class="text-xs text-orange-600 font-medium mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                Low Stock
+                            </p>
+</div>
+<button class="text-sm text-slate-400 hover:text-red-500 transition-colors flex items-center gap-1 mt-3 w-fit md:hidden">
+<span class="material-symbols-outlined text-[16px]">delete</span> Remove
+                        </button>
+</div>
+</div>
+<div class="col-span-2 text-center hidden md:block">
+<span class="text-slate-900 dark:text-slate-200 font-medium">$45.00</span>
+</div>
+<div class="col-span-2 flex justify-center w-full md:w-auto mt-4 md:mt-0">
+<div class="flex items-center justify-between md:justify-center border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 px-2 py-1 w-full md:w-auto">
+<button class="p-1 text-slate-500 hover:text-gold-accent transition-colors">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<input class="w-12 text-center bg-transparent border-none text-slate-900 dark:text-white font-medium focus:ring-0 p-0 text-sm" readonly="" type="text" value="1"/>
+<button class="p-1 text-slate-500 hover:text-gold-accent transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<div class="col-span-2 flex flex-col items-end justify-between h-full w-full md:w-auto mt-4 md:mt-0">
+<div class="flex items-center justify-between w-full md:justify-end">
+<span class="md:hidden text-slate-500 dark:text-slate-400">Total:</span>
+<span class="text-lg font-bold text-emerald-deep dark:text-white">$45.00</span>
+</div>
+<button class="hidden md:flex text-sm text-slate-400 hover:text-red-500 transition-colors items-center gap-1 mt-auto pt-2">
+<span class="material-symbols-outlined text-[18px]">close</span> Remove
+                    </button>
+</div>
+</div>
+<div class="flex justify-between items-center mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-700">
+<a class="flex items-center gap-2 text-emerald-deep dark:text-white font-medium hover:text-gold-accent transition-colors text-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    Continue Shopping
+                </a>
+</div>
+</div>
+<div class="lg:w-[380px] shrink-0">
+<div class="sticky top-28 bg-emerald-deep dark:bg-neutral-dark rounded-xl shadow-lg border border-transparent overflow-hidden text-white">
+<div class="p-6">
+<h2 class="text-xl font-bold text-white mb-6">Order Summary</h2>
+<div class="space-y-4 mb-6">
+<div class="flex justify-between items-center text-slate-200">
+<span>Subtotal</span>
+<span class="font-medium text-white">$515.00</span>
+</div>
+<div class="flex justify-between items-center text-slate-200">
+<div class="flex flex-col">
+<span>Shipping estimate</span>
+<a class="text-xs text-gold-accent underline mt-0.5" href="#">Calculate shipping</a>
+</div>
+<span class="font-medium text-emerald-300">Free</span>
+</div>
+<div class="flex justify-between items-center text-slate-200">
+<span>Tax estimate</span>
+<span class="font-medium text-white">$41.20</span>
+</div>
+</div>
+<div class="mb-6 pt-6 border-t border-dashed border-white/20">
+<label class="block text-xs font-medium text-slate-300 uppercase tracking-wide mb-2">Promo Code</label>
+<div class="flex gap-2">
+<input class="flex-grow rounded-lg border-transparent bg-white/10 text-white placeholder-slate-400 text-sm focus:ring-gold-accent focus:border-gold-accent" placeholder="Enter code" type="text"/>
+<button class="bg-white/10 hover:bg-white/20 text-white px-4 rounded-lg text-sm font-medium transition-colors">Apply</button>
+</div>
+</div>
+<div class="flex justify-between items-end border-t border-white/20 pt-6 mb-8">
+<span class="text-lg font-bold text-white">Order Total</span>
+<span class="text-2xl font-bold text-gold-accent">$556.20</span>
+</div>
+<button class="w-full bg-green-rich hover:bg-[#104023] text-white font-semibold py-4 rounded-lg shadow-lg shadow-black/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group border border-white/10">
+                        Proceed to Checkout
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<div class="mt-6 flex flex-col items-center gap-3">
+<div class="flex items-center gap-2 text-xs text-slate-300">
+<span class="material-symbols-outlined text-[16px] text-emerald-300">lock</span>
+                            Secure Checkout
+                        </div>
+<div class="flex gap-3 opacity-80 hover:opacity-100 transition-all">
+<div class="h-6 w-10 bg-white/10 rounded flex items-center justify-center overflow-hidden">
+<div class="h-4 w-4 rounded-full bg-red-400/50 -mr-2"></div>
+<div class="h-4 w-4 rounded-full bg-yellow-400/50"></div>
+</div>
+<div class="h-6 w-10 bg-white/10 rounded flex items-center justify-center">
+<div class="text-[8px] font-bold text-slate-300">VISA</div>
+</div>
+<div class="h-6 w-10 bg-white/10 rounded flex items-center justify-center">
+<div class="text-[8px] font-bold text-slate-300">PAY</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-black/20 p-4 border-t border-white/10">
+<p class="text-xs text-emerald-100 font-medium mb-2 text-center">You've earned <span class="font-bold text-gold-accent">Free Shipping!</span></p>
+<div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-gold-accent w-full rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-24">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">You might also like</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden mb-4">
+<img alt="Minimalist ceramic vase with dried flowers" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqLHzgAURQNic5GiIBcieUi_UApjB_ZqF1JsvmvrcliErw6XQJyd81fjuAZquFxPXOuHL_p4W2auvBovGeydw52AW4e4dSMuHytI5Na4qPoi9muGNQx4BTNY4Bfv1ByqmUdB9anOqCMhLI8pMOlRnGqvwx4TARlfrbBh8G6xLpDAOJV7Cq1D9LThktc3dUUG2X_BbE0K5deztmCJicb2Zu8N0uZjSjLe_RfY6LYCnXg6gvWfm2a1v7XPF7J1_MWU6z0Go961vXIYg"/>
+<button class="absolute bottom-4 right-4 h-10 w-10 bg-emerald-deep text-white rounded-full shadow-lg flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-green-rich">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+</button>
+</div>
+<h3 class="font-medium text-slate-900 dark:text-white">Ceramic Vase Set</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">$68.00</p>
+</div>
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden mb-4">
+<img alt="White linen shirt hanging on a rack" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsQJuB2Esi6tIosutXLYO-nLN-bENku2fh4-wVVajXWpBvBj_Z4eSmu5H7BQhD2yHhHtLLagSxJRmu3EpDRLUeWM0W3H--C3hwEt4GFB3F30_Wb4lsGDaIKjrDrmjMJYDDmSs_HacfVoMhDSLsvuT2QEHg0KWr2ZNUyWTLeW6KiNuh81GQpsjAD-Rrpan4bO4QyBXXemZ-MChwi-cTWDF_tglJEn53cZTXhaGPJpEBklH50_eHE6m4pDxk3CpEBbwHLW3e1JxvzqE"/>
+<button class="absolute bottom-4 right-4 h-10 w-10 bg-emerald-deep text-white rounded-full shadow-lg flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-green-rich">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+</button>
+</div>
+<h3 class="font-medium text-slate-900 dark:text-white">Linen Button Down</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">$89.00</p>
+</div>
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden mb-4">
+<img alt="Red sneaker shoes on white background" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQqNENFUdVE3MTB3SsFjy-i12Xm-0hjcP39XaI7uw-gWr42QA8vZsyL0ro5zj7YgJdODO4ok_V5tdXX2kj64GMnwAtiTBgeO_86za11F6qVBSoq4PZPq310f-oL8b9BPUHrIRrebK5UOF5I2tEPzc0kRpNl4G7xbYs3A90FPxmLsTSrHU6uko1kRo5e4Y3-SF6fcA-szVswFC--f-uDdOegOCQPk8qygFNtPjwHpfAg2r4mcY1CjOG1XsX5CvAnzVMLZAglbQE1ls"/>
+<button class="absolute bottom-4 right-4 h-10 w-10 bg-emerald-deep text-white rounded-full shadow-lg flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-green-rich">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+</button>
+</div>
+<h3 class="font-medium text-slate-900 dark:text-white">Urban Runners</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">$145.00</p>
+</div>
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden mb-4">
+<img alt="Leather tote bag in cognac brown" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPJwxIk8Iepyz2pQQ-jyVFFMUeWbOg3qOQVwcV1xQ_V3fdJtx0udDbHZHxRMgIzn9CN2q8S_5hBtUkvxckfxl2e7NB-BT0cYGbycQNc70o5ISD6kDiHfBOX7OdAHpF5dTAk0FHk4Cnx9-j_6q-9enxD0ya21YMQbbCUrpKsYPmVyHp7Db8O5S_-bGlNXv1UF46BIzRhACWdPCQLQPiAUhKzu2RoYz6JE0JTw6NpFkEPPK2ttYN3lZ6v_D2nUmWaAIxSclwJS7Dyek"/>
+<button class="absolute bottom-4 right-4 h-10 w-10 bg-emerald-deep text-white rounded-full shadow-lg flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-green-rich">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+</button>
+</div>
+<h3 class="font-medium text-slate-900 dark:text-white">Classic Tote</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">$195.00</p>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white dark:bg-neutral-dark border-t border-neutral-200 dark:border-neutral-700 mt-12 py-12">
+<div class="max-w-[1400px] mx-auto px-6 text-center text-slate-500 dark:text-slate-400 text-sm">
+<div class="flex items-center justify-center gap-2 mb-4 text-emerald-deep dark:text-white opacity-80">
+<div class="size-6 text-gold-accent">
+<svg class="h-full w-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="font-bold text-lg text-emerald-deep dark:text-white">GridCart</span>
+</div>
+<p>© 2023 GridCart Inc. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

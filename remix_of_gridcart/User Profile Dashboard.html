@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wishlist - GridCart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#D4AF37","secondary": "#14532D","emerald-dark": "#0F3D3E","background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<header class="bg-white dark:bg-[#0F3D3E] border-b border-gray-100 dark:border-[#1a4a4b] sticky top-0 z-50">
+<div class="px-4 md:px-10 py-3 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="size-8 text-[#0F3D3E] dark:text-primary">
+<svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_535)">
+<path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clipPath id="clip0_6_535"><rect fill="white" height="48" width="48"></rect></clipPath>
+</defs>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-emerald-dark dark:text-white">GridCart</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Shop</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Collections</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">About</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Journal</a>
+</nav>
+</div>
+<div class="flex items-center gap-4 md:gap-8">
+<label class="hidden md:flex flex-col w-64 h-10">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-[#f0f4f3] dark:bg-[#154647]">
+<div class="flex items-center justify-center pl-4 pr-2 text-[#61897c]">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full bg-transparent border-none focus:ring-0 text-sm placeholder:text-[#61897c] text-slate-900 dark:text-slate-100" placeholder="Search products..."/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex items-center justify-center size-10 rounded-lg bg-[#f0f4f3] dark:bg-[#154647] hover:bg-gray-200 dark:hover:bg-[#1e5759] transition-colors">
+<span class="material-symbols-outlined text-[20px] text-secondary dark:text-primary">shopping_cart</span>
+</button>
+<button class="flex items-center justify-center size-10 rounded-lg bg-[#f0f4f3] dark:bg-[#154647] hover:bg-gray-200 dark:hover:bg-[#1e5759] transition-colors relative">
+<span class="material-symbols-outlined text-[20px] text-secondary dark:text-primary">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-white dark:border-[#154647]"></span>
+</button>
+<button class="flex items-center justify-center size-10 rounded-lg bg-secondary text-primary font-bold hover:bg-[#1e6f3d] transition-colors">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1400px] mx-auto px-4 md:px-10 py-8 md:py-12">
+<div class="flex flex-col lg:flex-row gap-8">
+<aside class="w-full lg:w-72 flex-shrink-0">
+<div class="bg-emerald-dark dark:bg-emerald-dark rounded-xl p-6 shadow-lg border border-emerald-900/10 dark:border-emerald-800 sticky top-24 text-white">
+<div class="flex items-center gap-4 mb-8 pb-8 border-b border-emerald-800">
+<div class="relative size-14">
+<img alt="Profile picture of a smiling woman with glasses" class="w-full h-full object-cover rounded-full border-2 border-primary shadow-sm" data-alt="Portrait of Alex Morgan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWNOs9GcK-ssSpzJV6egMGtbbJ8zm6JFh4mvR--_5_E0Q-MK4KRfWpp7aFPM_I1DOU0QS16HTzzJstvEl2qV771WSGXCU0VwKnjcov_Eiyack20r4pNNGZzbfA0Wohzelvn8FNryq_mI47gPhtgfGBP72MQtNNZ3LcUUh-V546jLEXjwzEe8sp5YIgF-sxKzXE6NeUvQ9T44INI40-6KNrd12CcosPOqKTaPHa0KWw5ZRDAUKe8KjAPTeL7DY4VWn3KSEsAiOxTxY"/>
+<div class="absolute bottom-0 right-0 size-4 bg-primary rounded-full border-2 border-emerald-dark"></div>
+</div>
+<div>
+<h3 class="font-bold text-lg leading-tight text-white">Alex Morgan</h3>
+<p class="text-sm text-primary font-medium">Gold Member</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-100/80 hover:bg-[#14532D] hover:text-primary font-medium transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">person</span>
+                        Personal Info
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-100/80 hover:bg-[#14532D] hover:text-primary font-medium transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">package_2</span>
+                        My Orders
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-100/80 hover:bg-[#14532D] hover:text-primary font-medium transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">location_on</span>
+                        Saved Addresses
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#14532D] text-primary font-bold transition-all border-l-4 border-primary shadow-sm" href="#">
+<div class="relative">
+<span class="material-symbols-outlined text-primary">favorite</span>
+<span class="absolute -top-1 -right-1 size-2 bg-primary rounded-full"></span>
+</div>
+                        Wishlist
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-100/60 hover:bg-[#14532D] hover:text-white font-medium transition-all group mt-4 border-t border-emerald-800 pt-6" href="#">
+<span class="material-symbols-outlined group-hover:text-red-400 transition-colors">logout</span>
+                        Sign Out
+                    </a>
+</nav>
+</div>
+</aside>
+<div class="flex-1 space-y-8">
+<div class="bg-emerald-dark rounded-xl p-8 relative overflow-hidden">
+<div class="relative z-10">
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-2">My Wishlist</h1>
+<p class="text-gray-300 max-w-lg">Keep track of the items you love. Prices and availability are subject to change.</p>
+</div>
+<div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-primary/20 to-transparent pointer-events-none"></div>
+<div class="absolute -bottom-10 -right-10 size-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+</div>
+<section class="bg-white dark:bg-[#0F3D3E] rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-[#1a4a4b]">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+<div>
+<h2 class="text-xl font-bold dark:text-white">Saved Items <span class="text-slate-400 font-normal ml-2 text-base">(5 items)</span></h2>
+</div>
+<div class="flex gap-3">
+<select class="form-select bg-gray-50 dark:bg-[#154647] dark:text-emerald-100 border-none rounded-lg text-sm px-4 py-2.5 focus:ring-1 focus:ring-primary">
+<option>Recently Added</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+<div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+<img alt="Minimalist beige leather handbag" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv7EfysU6IYwEsmTr2aGi1wdrgH15Y6Z3QPML8oyQoXyxxqnUoerUD1fHBUgArVQoqbnAJdsYYvuyiLxCj8ENEeL_fRoJbWRcx8GH2mNpoGVoyM0lUa0R1NoWAO7dCNd_VCVSkDRgJ3srST5blCkxhJxS3y-ALRG432xISRXq00GMPBXWeX6N1RbOr4r5rYbAmvdBSiobjIhz2AnNic-1tBXC4sLhBntLWtojfOSdY02JZ-p5W2Ca_XmmKgN1nG99-EtwkAlCS8sU"/>
+<button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<div class="absolute bottom-3 left-3 px-2 py-1 bg-white/90 dark:bg-black/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-white shadow-sm">
+                                In Stock
+                            </div>
+</div>
+<div class="p-5">
+<div class="mb-3">
+<p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Accessories</p>
+<h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Minimalist Leather Tote</h3>
+<div class="flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star_half</span>
+<span class="text-xs text-slate-400 ml-1">(42)</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+<span class="text-xl font-bold text-secondary dark:text-primary">$245.00</span>
+<button class="flex items-center gap-2 bg-emerald-dark hover:bg-secondary text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+<div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+<img alt="Red athletic sneakers on white background" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYb4yI_c_NPE0u4HrZ_OyvXYHTl51Qr0yL3WeMRRr8g_g8jJYOE79vmQ347woO3QS5X1Bcr8DaYamXnKRYZqaCLWmtBUHyEK1kgO5DnA4olxKoHpwqJAUpZ0PGt2GvkePFRlmHMS8LI7_ZSALwhHf8H5u0nSpKf0cys0Fjt1FO83GT5Eb_VQB5DmW0vcRzlpJnTsk1yYUASOlqlBaBDaCU6VgDL3FrZ13zGn7CFKjHvu1amGmW5hps_ZBRyLKUD06WvcqIJ0Cc0SA"/>
+<button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<div class="absolute bottom-3 left-3 px-2 py-1 bg-yellow-100/90 dark:bg-yellow-900/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-yellow-800 dark:text-yellow-200 shadow-sm">
+                                Low Stock
+                            </div>
+</div>
+<div class="p-5">
+<div class="mb-3">
+<p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Footwear</p>
+<h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Urban Runner Sneakers</h3>
+<div class="flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-gray-300 text-[16px]">star</span>
+<span class="text-xs text-slate-400 ml-1">(18)</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+<span class="text-xl font-bold text-secondary dark:text-primary">$129.00</span>
+<button class="flex items-center gap-2 bg-emerald-dark hover:bg-secondary text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+<div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+<img alt="White minimalistic watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5kL6j1qPJ4va_fPPYqNvw6VPZIFjTRC2aV6rKvdYM2-5PZ6zLQG-thKPL845ydwgCP0mCSwjIWl3Cp7NwpUvGwEVmrBp3wgS6Ru19f-7uMOcEg6sU1R83sZMXRM9hHjGg6oNhijgnnB0cn06VdVS_2-bhKe8cfJor0MqHeee-_BWIanJzYirz4rpAgwSfZP6zSOAPZqqKDu6LU1u7oT1qZkk7H2bljfMdBWGGW-_vGFDTbWJfdGipiOAGo-GP_3foHDn9UNbAPUM"/>
+<button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<div class="absolute bottom-3 left-3 px-2 py-1 bg-white/90 dark:bg-black/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-white shadow-sm">
+                                In Stock
+                            </div>
+</div>
+<div class="p-5">
+<div class="mb-3">
+<p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Accessories</p>
+<h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Classic Chrono White</h3>
+<div class="flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="text-xs text-slate-400 ml-1">(124)</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+<span class="text-xl font-bold text-secondary dark:text-primary">$189.50</span>
+<button class="flex items-center gap-2 bg-emerald-dark hover:bg-secondary text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+<div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+<img alt="Wireless headphones" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDriXf61G3Sq7-h0pVsnfpvXb_MYA73SmNDVROcqhCoeGsLzNdijzfAIR6x8Ky3wv6B9KbFx14GnB7mqfTSt8zKfR4lOFA_8Tgteh1S_pwBsHALlLOp75gLQVpl51uv45dgKuJAMSvbk_4bLB_pbDR54_X7J1tk8dpZzs002nzazLoTYlPTa6J6mMFfpSl0nAQkC7HiBtK2LME6nNmnTYkEHIZJ9enuH04-E0hENbAibpfZzBxsMmoskcObrMLE4xN2RD6AR5UhepU"/>
+<button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<div class="absolute bottom-3 left-3 px-2 py-1 bg-red-100/90 dark:bg-red-900/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-red-800 dark:text-red-200 shadow-sm">
+                                Sale
+                            </div>
+</div>
+<div class="p-5">
+<div class="mb-3">
+<p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Electronics</p>
+<h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Studio Pro Wireless</h3>
+<div class="flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star_half</span>
+<span class="text-xs text-slate-400 ml-1">(89)</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+<div class="flex flex-col">
+<span class="text-xl font-bold text-secondary dark:text-primary">$299.99</span>
+<span class="text-xs text-slate-400 line-through">$349.99</span>
+</div>
+<button class="flex items-center gap-2 bg-emerald-dark hover:bg-secondary text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+<div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+<img alt="Winter knitted sweater" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9bgUBgh1a6bVL5rZS6AfI2WIero5_nxZmc8ff5eeP66H6L72SCF11tzMIixlEuuvBj2QpJU4y5q9mz-aI2x2_HDyT9Ck8YA8rHtcTdE1zvQZKlULBsSUvJoFEWjUakgF4CsJjsTUFRoBTgHaRZl84dLsmT8XfezPkf0Z8oy2a6Fa25LkbxGJ8qkQnaQEDuXNj4Riu3SFyHE-1_OD14jM6JJrYtdP6SA4PGXWHtwj_RJX8tkDPw5MLsMBUrvG8sLPlDa7_xV1QBDU"/>
+<button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<div class="absolute bottom-3 left-3 px-2 py-1 bg-gray-200/90 dark:bg-gray-700/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 shadow-sm">
+                                Out of Stock
+                            </div>
+</div>
+<div class="p-5">
+<div class="mb-3">
+<p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Apparel</p>
+<h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Merino Wool Sweater</h3>
+<div class="flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+<span class="text-xs text-slate-400 ml-1">(15)</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+<span class="text-xl font-bold text-secondary dark:text-primary">$85.00</span>
+<button class="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-400 px-4 py-2 rounded-lg text-sm font-bold cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]">block</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<div class="group border-2 border-dashed border-gray-200 dark:border-[#1a4a4b] rounded-xl flex flex-col items-center justify-center p-8 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 min-h-[300px]">
+<div class="size-16 rounded-full bg-gray-50 dark:bg-[#154647] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[32px] text-slate-400 dark:text-emerald-100/50 group-hover:text-primary transition-colors">add</span>
+</div>
+<h3 class="font-bold text-lg text-slate-600 dark:text-emerald-100 mb-2">Browse More</h3>
+<p class="text-sm text-slate-500 text-center max-w-[200px] mb-6">Explore our latest collections to find more items you'll love.</p>
+<button class="text-sm font-bold text-secondary dark:text-primary hover:underline">Go to Shop</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+
+</body></html>

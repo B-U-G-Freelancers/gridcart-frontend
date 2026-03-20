@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GRID CART | Luxury Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0F3D2E",
+                        "gold": "#D4AF37",
+                        "gold-light": "#E5C76B",
+                        "ivory": "#FAF9F6",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#131f1b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-item-active {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-right: 3px solid #D4AF37;
+            color: #D4AF37 !important;
+        }
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0F3D2E;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-ivory font-display text-primary">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 bg-primary text-white flex flex-col shrink-0 border-r border-gold/10">
+<div class="p-8 flex items-center gap-3">
+<div class="size-10 bg-gold flex items-center justify-center rounded-lg shadow-lg shadow-black/20">
+<span class="material-symbols-outlined text-primary font-bold">grid_view</span>
+</div>
+<div>
+<h1 class="serif-title text-xl font-bold tracking-tight text-white">GRID CART</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-gold-light opacity-80">Luxury Boutique</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 py-4 px-4 overflow-y-auto">
+<a class="sidebar-item-active flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-md text-white/70 hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-medium">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-md text-white/70 hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-sm font-medium">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-md text-white/70 hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-md text-white/70 hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="text-sm font-medium">Coupons</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-md text-white/70 hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">local_offer</span>
+<span class="text-sm font-medium">Deals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-md text-white/70 hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<div class="mt-auto pt-4 border-t border-white/10">
+<a class="flex items-center gap-3 px-4 py-3 rounded-md text-white/70 hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</nav>
+<div class="p-6">
+<div class="bg-gold/10 border border-gold/20 rounded-xl p-4">
+<p class="text-xs text-gold font-bold mb-1">PRO PLAN</p>
+<p class="text-[11px] text-white/70 mb-3 leading-relaxed">Unlock advanced analytics and API access.</p>
+<button class="w-full py-2 border border-gold text-gold hover:bg-gold hover:text-primary text-xs font-bold rounded-md transition-all">UPGRADE</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden bg-ivory">
+<!-- Header -->
+<header class="h-20 bg-white border-b border-primary/5 px-8 flex items-center justify-between shrink-0">
+<div class="flex items-center gap-6 w-full max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary/40">search</span>
+<input class="w-full bg-ivory border-none rounded-lg pl-10 pr-4 py-2.5 text-sm focus:ring-1 focus:ring-gold transition-all outline-none" placeholder="Search orders, products or customers..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="size-10 flex items-center justify-center rounded-full hover:bg-primary/5 text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full hover:bg-primary/5 text-primary transition-colors">
+<span class="material-symbols-outlined">calendar_today</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-primary/10"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-sm font-bold text-primary">Rajesh Gupta</p>
+<p class="text-[10px] text-primary/50 uppercase tracking-wider">Store Manager</p>
+</div>
+<div class="size-10 rounded-full border-2 border-gold p-0.5">
+<img class="size-full rounded-full object-cover" data-alt="Admin user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXnUoAB8222AhH0QoLRZOUK7K6hUvtg-63TUOVvES1_E8ZJ1jD88l-fPYLPUtKOx-2OSxy5gCU50TITGK734o9iqg_fcjOVXwg_xVYcB6nRyds6-BfGKCmeRaNIKreUylWpem7XllgFLhNXJ1nw-PYqjXeJpVK1Dz7jVRhSOQKukGhYYJT1aIeDM1lJc2gwgAgh8Mi_e3208Xm6SQ7JF8APe1btEFXLJWo7fTPCl9HUD_yOLP-FyK3KPjW3IC9n1yabybxKOxcVKM"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="flex-1 overflow-y-auto p-8">
+<!-- Management Control Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+<div>
+<h2 class="serif-title text-3xl font-bold text-primary mb-1">Dashboard Overview</h2>
+<p class="text-sm text-primary/60">Welcome back, here's what's happening today.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-primary px-4 py-2.5 rounded-lg flex items-center gap-3 border border-gold/30">
+<div class="flex flex-col">
+<span class="text-[9px] text-gold uppercase tracking-[0.2em] font-bold">Flash Deal Active</span>
+<span class="text-white text-sm font-mono tracking-widest">02:14:55</span>
+</div>
+<button class="size-8 bg-white/5 hover:bg-white/10 rounded flex items-center justify-center text-gold transition-colors">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+</div>
+<button class="bg-primary text-white px-6 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-primary/90 transition-all border border-gold/40 shadow-lg shadow-black/20">
+<span class="material-symbols-outlined text-lg text-gold">add_circle</span>
+                            Add Product
+                        </button>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+<div class="bg-white p-6 rounded-xl border border-primary/5 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="size-12 rounded-lg bg-gold/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-gold">payments</span>
+</div>
+<span class="text-[11px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded">+12.5%</span>
+</div>
+<p class="text-primary/50 text-xs font-medium uppercase tracking-wider mb-1">Total Revenue</p>
+<h3 class="text-2xl font-bold text-primary">₹2,45,000</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-primary/5 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+</div>
+<span class="text-[11px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded">+8%</span>
+</div>
+<p class="text-primary/50 text-xs font-medium uppercase tracking-wider mb-1">Orders Today</p>
+<h3 class="text-2xl font-bold text-primary">124</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-primary/5 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<span class="text-[11px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded">+5%</span>
+</div>
+<p class="text-primary/50 text-xs font-medium uppercase tracking-wider mb-1">Active Users</p>
+<h3 class="text-2xl font-bold text-primary">842</h3>
+</div>
+<div class="bg-white p-6 rounded-xl border border-primary/5 shadow-sm hover:shadow-md transition-shadow border-l-4 border-l-red-500">
+<div class="flex items-start justify-between mb-4">
+<div class="size-12 rounded-lg bg-red-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-red-600">error</span>
+</div>
+<span class="text-[11px] font-bold text-red-600 bg-red-50 px-2 py-1 rounded">-2%</span>
+</div>
+<p class="text-primary/50 text-xs font-medium uppercase tracking-wider mb-1">Low Stock Items</p>
+<h3 class="text-2xl font-bold text-primary">6</h3>
+</div>
+</div>
+<!-- Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+<div class="bg-white p-8 rounded-xl border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h4 class="serif-title text-xl font-bold">Sales Growth</h4>
+<select class="bg-ivory border-none text-[11px] font-bold uppercase tracking-wider py-1.5 px-3 rounded text-primary/60 outline-none">
+<option>Last 30 Days</option>
+<option>Last 90 Days</option>
+</select>
+</div>
+<div class="relative h-64 w-full">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 500 200">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4"></stop>
+<stop offset="100%" stop-color="#D4AF37" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,180 C50,160 100,170 150,120 C200,70 250,90 300,50 C350,10 400,60 450,40 L500,30 L500,200 L0,200 Z" fill="url(#chartGradient)"></path>
+<path d="M0,180 C50,160 100,170 150,120 C200,70 250,90 300,50 C350,10 400,60 450,40 L500,30" fill="none" stroke="#D4AF37" stroke-width="3"></path>
+<circle cx="150" cy="120" fill="#0F3D2E" r="4" stroke="#D4AF37" stroke-width="2"></circle>
+<circle cx="300" cy="50" fill="#0F3D2E" r="4" stroke="#D4AF37" stroke-width="2"></circle>
+<circle cx="450" cy="40" fill="#0F3D2E" r="4" stroke="#D4AF37" stroke-width="2"></circle>
+</svg>
+<div class="flex justify-between mt-4 text-[10px] uppercase font-bold text-primary/40 tracking-[0.1em]">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+</div>
+</div>
+<div class="bg-white p-8 rounded-xl border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h4 class="serif-title text-xl font-bold">Top Selling Products</h4>
+<span class="text-[11px] font-bold text-primary/40 uppercase tracking-widest">Current Month</span>
+</div>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="font-medium">Luxury Silk Scarf</span>
+<span class="font-bold">142 Units</span>
+</div>
+<div class="w-full bg-ivory h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 85%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="font-medium">Gold Plated Cufflinks</span>
+<span class="font-bold">98 Units</span>
+</div>
+<div class="w-full bg-ivory h-2 rounded-full overflow-hidden">
+<div class="bg-gold h-full rounded-full shadow-[0_0_8px_rgba(212,175,55,0.4)]" style="width: 65%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="font-medium">Leather Weekend Bag</span>
+<span class="font-bold">76 Units</span>
+</div>
+<div class="w-full bg-ivory h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full opacity-60" style="width: 45%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="font-medium">Crystal Fragrance Set</span>
+<span class="font-bold">54 Units</span>
+</div>
+<div class="w-full bg-ivory h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full opacity-40" style="width: 35%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Orders Table -->
+<div class="bg-white rounded-xl border border-primary/5 shadow-sm overflow-hidden">
+<div class="p-8 border-b border-primary/5 flex items-center justify-between">
+<h4 class="serif-title text-xl font-bold">Recent Orders</h4>
+<button class="text-gold text-xs font-bold uppercase tracking-widest hover:underline transition-all">View All Orders</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-ivory/50 border-b border-primary/5">
+<tr>
+<th class="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-primary/40">Order ID</th>
+<th class="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-primary/40">Customer</th>
+<th class="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-primary/40">Date</th>
+<th class="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-primary/40">Amount</th>
+<th class="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-primary/40">Status</th>
+<th class="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-primary/40 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-ivory/30 transition-colors">
+<td class="px-8 py-5 text-sm font-bold text-primary">#ORD-8921</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-[10px] font-bold">SM</div>
+<span class="text-sm font-medium">Siddharth Malhotra</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-primary/60">Oct 24, 2023</td>
+<td class="px-8 py-5 text-sm font-bold">₹12,400</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-primary/5 text-primary border border-primary/20 rounded-full text-[10px] font-bold uppercase tracking-wider">Shipped</span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="size-8 text-primary/40 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-ivory/30 transition-colors">
+<td class="px-8 py-5 text-sm font-bold text-primary">#ORD-8922</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gold/10 flex items-center justify-center text-gold text-[10px] font-bold">PK</div>
+<span class="text-sm font-medium">Priya Kapoor</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-primary/60">Oct 24, 2023</td>
+<td class="px-8 py-5 text-sm font-bold">₹8,900</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-gold/5 text-gold border border-gold/20 rounded-full text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="size-8 text-primary/40 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-ivory/30 transition-colors">
+<td class="px-8 py-5 text-sm font-bold text-primary">#ORD-8923</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-[10px] font-bold">AV</div>
+<span class="text-sm font-medium">Ananya Verma</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-primary/60">Oct 23, 2023</td>
+<td class="px-8 py-5 text-sm font-bold">₹24,500</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider">Delivered</span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="size-8 text-primary/40 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-ivory/30 transition-colors">
+<td class="px-8 py-5 text-sm font-bold text-primary">#ORD-8924</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gold/10 flex items-center justify-center text-gold text-[10px] font-bold">RJ</div>
+<span class="text-sm font-medium">Rahul Jain</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-primary/60">Oct 23, 2023</td>
+<td class="px-8 py-5 text-sm font-bold">₹4,200</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-red-50 text-red-700 rounded-full text-[10px] font-bold uppercase tracking-wider">Cancelled</span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="size-8 text-primary/40 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

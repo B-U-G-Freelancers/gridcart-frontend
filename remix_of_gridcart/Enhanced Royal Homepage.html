@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GridCart | Premium Royal FMCG</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0F3D3E","gold": "#D4AF37",
+                        "background-light": "#FAF9F6",
+                        "background-dark": "#082018",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #F1D37E 50%, #B8860B 100%);
+        }
+        .royal-shadow {
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
+        }
+        .category-card:hover {
+            border-color: #D4AF37;
+            transform: translateY(-4px);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        .premium-glow:hover {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }.header-search::placeholder {
+            color: rgba(15, 61, 62, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background-light font-display text-primary">
+<header class="sticky top-0 z-50 bg-white border-b border-primary/10 royal-shadow">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<div class="flex items-center gap-2 group cursor-pointer">
+<div class="size-10 flex items-center justify-center bg-primary rounded-lg"><span class="material-symbols-outlined text-gold text-3xl">crown</span></div>
+<div class="flex flex-col leading-none">
+<span class="font-display text-2xl font-bold tracking-tight text-primary">GridCart</span>
+<span class="text-[10px] uppercase tracking-[0.2em] text-primary/80 font-bold">Royal Grocers</span>
+</div>
+</div>
+<div class="hidden md:flex flex-1 max-w-xl mx-8">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-primary/60">search</span>
+</div>
+<input class="header-search block w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-sm text-primary transition-all placeholder-primary/50" placeholder="Search for organic honey, A2 milk, royal spices..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 lg:gap-6">
+<div class="hidden lg:flex flex-col items-end">
+<div class="flex items-center gap-1 text-primary/80 text-xs">
+<span class="material-symbols-outlined text-xs text-primary">location_on</span>
+<span>Delivering to</span>
+</div>
+<span class="text-xs font-bold text-primary underline decoration-gold cursor-pointer">Chennai, India</span>
+</div>
+<button class="relative p-2 text-primary hover:text-gold transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="relative p-2 text-primary hover:text-gold transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-0 right-0 size-5 bg-gold text-primary text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">3</span>
+</button>
+<button class="flex items-center gap-2 bg-primary/5 border border-primary/10 text-primary pl-1 pr-4 py-1 rounded-full hover:bg-primary/10 transition-all">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/10">
+<img alt="Profile" class="size-full object-cover" data-alt="User profile avatar for Sanjeev R." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJOdkifomPs0ENuMMs7cS7RqrSHvleBiJSEIqBuqyP36OwzS8_GC3Lbq3wYBiQRTIs82UqapA2ezW0sfxViMGQTiDW_cN3KvmqWMmSIkAUpwmgyObPpnxT0jQNj5m6wLt0WP4IOH9l17A58XfVoRyzU78XAj0Lj8n_9ThQo3ZfI7INdO2t3-7h9E5E95-OyVYVB4dkO_Cv10eymZdNTVQHUiwNaWFhRF7RZoNTIkY0lpcwmGNmR_wbaNS59xUcXk3B9aYDR0WR0G0"/>
+</div>
+<span class="text-sm font-medium">Sanjeev R.</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<section class="relative h-[480px] rounded-3xl overflow-hidden mb-12 group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="High-end luxury grocery display with golden lighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC4FZlzTCPBuQ4V9rK3nHTYu4MP6YXKKW29tY9EGByUQ6kQDHFSj6MGLNQRY26HD_Xh99Y0TgR2T-Czs6LpZYFZ5etWVyYaD09-c6f8O5AjXH8hjxkTLZHsLYP-ilOfO6Hg40UvZ2czHCK-6FY4m3Ls8tkBFIavNyQLFtIUw_By7G8_NBxLWc6PH3PAGhm6XahVeIMmybuu64rziNIvGEB4GJRjlboI8JGE3eOd9dAYeuOJTjnfE9PoQoKWfJjKEN5q5UM8vj7tkzI')"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/40 to-transparent"></div>
+<div class="relative h-full flex flex-col justify-center px-12 md:px-20 max-w-2xl">
+<span class="text-gold font-bold tracking-[0.3em] uppercase mb-4 text-sm">Exclusive Collection</span>
+<h1 class="font-serif text-5xl md:text-6xl text-white mb-6 leading-tight">Premium Quality, <br/><span class="text-gold">Royal Savings</span></h1>
+<p class="text-white/80 text-lg mb-8 max-w-md">Experience the finest organic selections and daily essentials delivered to your palace in 10 minutes.</p>
+<div class="flex gap-4">
+<button class="gold-gradient px-8 py-4 rounded-xl font-bold text-primary hover:shadow-lg hover:shadow-gold/30 transition-all transform hover:-translate-y-1">Shop Now</button>
+<button class="bg-white/10 backdrop-blur-md border border-white/20 px-8 py-4 rounded-xl font-bold text-white hover:bg-white/20 transition-all">View Deals</button>
+</div>
+</div>
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+<div class="w-8 h-1.5 bg-gold rounded-full"></div>
+<div class="w-2 h-1.5 bg-white/30 rounded-full"></div>
+<div class="w-2 h-1.5 bg-white/30 rounded-full"></div>
+</div>
+</section>
+<section class="mb-16">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-serif text-3xl font-bold text-primary">Shop by Category</h2>
+<p class="text-primary/60">The finest selection across all essentials</p>
+</div>
+<button class="text-gold font-bold flex items-center gap-1 hover:gap-2 transition-all">View All <span class="material-symbols-outlined text-sm">arrow_forward_ios</span></button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+<div class="category-card group bg-white p-6 rounded-2xl flex flex-col items-center gap-4 text-center cursor-pointer border-2 border-transparent transition-all border-gold/10">
+<div class="size-16 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-gold transition-colors">eco</span>
+</div>
+<span class="text-sm font-bold">Fruits &amp; Veg</span>
+</div>
+<div class="category-card group bg-white p-6 rounded-2xl flex flex-col items-center gap-4 text-center cursor-pointer border-2 border-transparent transition-all border-gold/10">
+<div class="size-16 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-gold transition-colors">egg_alt</span>
+</div>
+<span class="text-sm font-bold">Dairy</span>
+</div>
+<div class="category-card group bg-white p-6 rounded-2xl flex flex-col items-center gap-4 text-center cursor-pointer border-2 border-transparent transition-all border-gold/10">
+<div class="size-16 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-gold transition-colors">cookie</span>
+</div>
+<span class="text-sm font-bold">Snacks</span>
+</div>
+<div class="category-card group bg-white p-6 rounded-2xl flex flex-col items-center gap-4 text-center cursor-pointer border-2 border-transparent transition-all border-gold/10">
+<div class="size-16 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-gold transition-colors">home_repair_service</span>
+</div>
+<span class="text-sm font-bold">Household</span>
+</div>
+<div class="category-card group bg-white p-6 rounded-2xl flex flex-col items-center gap-4 text-center cursor-pointer border-2 border-transparent transition-all border-gold/10">
+<div class="size-16 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-gold transition-colors">spa</span>
+</div>
+<span class="text-sm font-bold">Personal Care</span>
+</div>
+<div class="category-card group bg-white p-6 rounded-2xl flex flex-col items-center gap-4 text-center cursor-pointer border-2 border-transparent transition-all border-gold/10">
+<div class="size-16 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-gold transition-colors">ac_unit</span>
+</div>
+<span class="text-sm font-bold">Frozen</span>
+</div>
+<div class="category-card group bg-white p-6 rounded-2xl flex flex-col items-center gap-4 text-center cursor-pointer border-2 border-transparent transition-all border-gold/10">
+<div class="size-16 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-gold transition-colors">child_care</span>
+</div>
+<span class="text-sm font-bold">Baby</span>
+</div>
+<div class="category-card group bg-white p-6 rounded-2xl flex flex-col items-center gap-4 text-center cursor-pointer border-2 border-transparent transition-all border-gold/10">
+<div class="size-16 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:text-gold transition-colors">pets</span>
+</div>
+<span class="text-sm font-bold">Pet</span>
+</div>
+</div>
+</section>
+<section class="mb-16 bg-primary rounded-3xl p-8 overflow-hidden relative">
+<div class="absolute top-0 right-0 size-64 bg-gold/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+<div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+<div class="flex items-center gap-4">
+<div class="gold-gradient p-3 rounded-xl"><span class="material-symbols-outlined text-primary font-bold">rewarded_ads</span></div>
+<div>
+<h2 class="font-serif text-3xl font-bold text-white">Golden Flash Sale</h2>
+<p class="text-gold/80 font-medium">Limited time premium offers</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-white/60 text-sm font-medium uppercase tracking-widest">Ending In</span>
+<div class="flex gap-2">
+<div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg text-gold font-bold border border-white/20">02h</div>
+<div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg text-gold font-bold border border-white/20">45m</div>
+<div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg text-gold font-bold border border-white/20">12s</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white rounded-2xl p-4 relative group cursor-pointer">
+<div class="absolute top-4 left-4 z-10 gold-gradient px-3 py-1 rounded text-[10px] font-bold uppercase text-primary shadow-sm">Save 20%</div>
+<div class="aspect-square bg-background-light rounded-xl mb-4 overflow-hidden">
+<img alt="Organic Bananas" class="size-full object-cover group-hover:scale-110 transition-transform" data-alt="Close up of fresh organic yellow bananas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoiD_UHaw_08hLdhnrFIa-OysktjckMQ_ACiV5iulCu9yXOpX1navDgXslOg_rMa6UkB2xepIs_TUL0PqnMzljl5culxuwDP3wCsSkMPF3_dUdRBFxmpArPecfWYsDIgMNUd4aA9OyVbJDNLtdcMY3IVVKbjLuZWWWG2JWSrpnYW7BSqHQmR7ckuNXrAWpcOJZD4UN09pGN1iIr0Q6ciuPJ-UhrLJDKSz3q5tWEVDTBXDJe2LkZ8dGeIkLm1TYtrxgPjd2GYR06aQ"/>
+</div>
+<div class="px-2">
+<h3 class="font-bold text-primary mb-1">Organic Bananas</h3>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xl font-bold text-primary">₹49</span>
+<span class="text-sm text-primary/40 line-through">₹65</span>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm hover:bg-gold hover:text-primary transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+</div>
+<div class="bg-white rounded-2xl p-4 relative group cursor-pointer">
+<div class="absolute top-4 left-4 z-10 gold-gradient px-3 py-1 rounded text-[10px] font-bold uppercase text-primary shadow-sm">Save 15%</div>
+<div class="aspect-square bg-background-light rounded-xl mb-4 overflow-hidden">
+<img alt="A2 Milk" class="size-full object-cover group-hover:scale-110 transition-transform" data-alt="Glass bottle of premium fresh organic milk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWKwLl4Lsn6a6L80oYlyemilaH_HdCVUSfgLLpF0fUZaOZsZUfiJEFY1dYxZwoa4OrOxGzmfsXWg2-bKqAoGY0KJ2ToRSajjAaT9DfxamV-nlB08Q0NPB1uBP_ocoi0UrCWZNOMCtri-1asxMibbHFTWRmKIxVpkl59tUJShEoOQyQvtuYQbEC_8w3kZIjHnVdvrtRLFPB2qJTqUhvArjuKEE6tgNPgVrkM0m_lJCNYUheAVRSwAGq4dMPW8mDqQ67wPggd3uDosE"/>
+</div>
+<div class="px-2">
+<h3 class="font-bold text-primary mb-1">A2 Desi Cow Milk</h3>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xl font-bold text-primary">₹65</span>
+<span class="text-sm text-primary/40 line-through">₹80</span>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm hover:bg-gold hover:text-primary transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+</div>
+<div class="bg-white rounded-2xl p-4 relative group cursor-pointer">
+<div class="absolute top-4 left-4 z-10 gold-gradient px-3 py-1 rounded text-[10px] font-bold uppercase text-primary shadow-sm">Hot Deal</div>
+<div class="aspect-square bg-background-light rounded-xl mb-4 overflow-hidden">
+<img alt="Almond Cookies" class="size-full object-cover group-hover:scale-110 transition-transform" data-alt="Plate of luxury roasted almond cookies" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzjwH7Tx2uj0mTe0Ko89gF1Z5a5Z7rZ5ks6WYxYStpBsT9SZGf3p6jeJN7OcP_wb3MVdmAMH4Szpw81JFFX64NaUoXNFBob2_cj5Sb36sLrqy_cJxHW_pj6PZy0RAX38rrfzStuiezALgyIfLqN5WfEAEhFMBYhNWOoJqp2udmPlvLhbc6rqi_mDUDkmbZFYIyL5SPdS-WNowQN44JcT5B0FetepdQxJe4bXbmK3XMUT5f79nJrTBdMGdvbh5RTBDr2Mfm6Y7YcNY"/>
+</div>
+<div class="px-2">
+<h3 class="font-bold text-primary mb-1">Roasted Almond Cookies</h3>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xl font-bold text-primary">₹199</span>
+<span class="text-sm text-primary/40 line-through">₹249</span>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm hover:bg-gold hover:text-primary transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+</div>
+<div class="bg-white rounded-2xl p-4 relative group cursor-pointer">
+<div class="absolute top-4 left-4 z-10 gold-gradient px-3 py-1 rounded text-[10px] font-bold uppercase text-primary shadow-sm">Save ₹100</div>
+<div class="aspect-square bg-background-light rounded-xl mb-4 overflow-hidden">
+<img alt="Olive Oil" class="size-full object-cover group-hover:scale-110 transition-transform" data-alt="Elegant glass bottle of extra virgin olive oil" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAilEviizoxRd6aPTAedBdCQXaYycbkssPooRnkuccT8Qf_-4wvvirXwu41PZyf2r5RPktgAvXWccxTUkixoruXK6hr-T30BDKLJPDr4f0gZvKRIEx0E6CGik4CPxWJTUsF-Ph6SdcaXA8SmuHJzbaIbZHAtfgYZqbIvRqk5pk0j_r4ES0n3XN4CNwwhxAmAURE49eO-1NU-w4OaHaTqvr3uu3trb3u0nkesdeRCGLP9xI4X6OGwggiH2fIJ2K3jGWIoOktyQyl3bA"/>
+</div>
+<div class="px-2">
+<h3 class="font-bold text-primary mb-1">Extra Virgin Olive Oil</h3>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xl font-bold text-primary">₹499</span>
+<span class="text-sm text-primary/40 line-through">₹599</span>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm hover:bg-gold hover:text-primary transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-16">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-serif text-3xl font-bold text-primary">Featured Selection</h2>
+<p class="text-primary/60">Top rated products by our royal members</p>
+</div>
+<div class="flex gap-2">
+<button class="size-10 rounded-full border border-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="size-10 rounded-full border border-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="flex flex-col gap-3 group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden bg-white royal-shadow relative">
+<img class="size-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Premium long grain Basmati Rice in a bag" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQvymezYyYl1017JYemKQGLA61DJvlQFMphSR2R7YSnHyk4fDNiGnw4EOaY6OTV9oqmucVoYEc0nBv_Vr4Do7XOHbMB66E6e3RT370we4AIiNFpJBYJxbLcJv7EHgd7L311JsifyNj_2wekdgsG5IrKZOznTWDWfW667NIwlGT9KuSrkLzbGtbq0_sklGKRWbll4bP2dRjcyrO4mvQSJzyKlZpFULX8LXPo7pUQc1PxMMI5ZUEiTRoNDTFM1bz4P3BAdPyweovXXc"/>
+<button class="absolute top-4 right-4 size-10 bg-white rounded-full flex items-center justify-center text-primary/40 hover:text-red-500 transition-colors shadow-lg">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold text-sm fill-current">star</span>
+<span class="text-xs font-bold">4.3</span>
+<span class="text-xs text-primary/40">(1.2k)</span>
+</div>
+<h3 class="font-bold text-lg">Daawat Basmati Rice</h3>
+<p class="text-primary/40 text-sm">5kg Premium Pack</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xl font-bold">₹499</span>
+<button class="bg-primary/5 hover:bg-gold p-2 rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden bg-white royal-shadow relative">
+<img class="size-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Freshly baked artisan brown bread loaf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8O-4BOgNQ0c-LbsaCYKKQqMflyQnAfx8b4_0C7d5Ti2JjU3ptHCGRlb4xAts13gM7eIPRWIEeVwB3AfF4wsZ-B9wAae7Ik3emG3faHXVfD0f7VB_76sA5dxsSbc-Mceh5V_HfVmIzKlilPKyS6-Xh0b7I1z1BgpRcSq2UlUfrRW1lvioS0g-g9sjH1skFWNrVwavARLTpcChX_ibbc0G2jvU-w5v_ro_diskAJRN6iYh2YDJjcdifU6cNPDKO7_WmN2saz7DcnWY"/>
+<button class="absolute top-4 right-4 size-10 bg-white rounded-full flex items-center justify-center text-primary/40 hover:text-red-500 transition-colors shadow-lg">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold text-sm fill-current">star</span>
+<span class="text-xs font-bold">4.8</span>
+<span class="text-xs text-primary/40">(840)</span>
+</div>
+<h3 class="font-bold text-lg">Artisan Brown Bread</h3>
+<p class="text-primary/40 text-sm">400g Whole Wheat</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xl font-bold">₹35</span>
+<button class="bg-primary/5 hover:bg-gold p-2 rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden bg-white royal-shadow relative">
+<img class="size-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Bright red ripe garden tomatoes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA2hpH23BAFsItJXSuig4_q26WekNB0d4Mb8pvULtS8pvJAzBBKqEGhC2t3dtuIyDVmPpgnhLfVRXMLg8WbU0RqkjbbAWgxUiAw2TmKuGXqvrw7UXKDKIJsBPOBMlVm4tB89q5h7WyMG7SzRBYbNY2JjEMva-4fvy39SYmKNC_Hiwqrs_A9VONQvTKbPC56byZT-Mwg2gEPi0pbUv35-upUBFTmmW6eV2qchssgKCZxVIQjjZ7BfGB6sEBiIIAQ7iahKP_K7qY6Gg"/>
+<button class="absolute top-4 right-4 size-10 bg-white rounded-full flex items-center justify-center text-primary/40 hover:text-red-500 transition-colors shadow-lg">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold text-sm fill-current">star</span>
+<span class="text-xs font-bold">4.5</span>
+<span class="text-xs text-primary/40">(2.1k)</span>
+</div>
+<h3 class="font-bold text-lg">Fresh Vine Tomatoes</h3>
+<p class="text-primary/40 text-sm">500g Farm Fresh</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xl font-bold">₹30</span>
+<button class="bg-primary/5 hover:bg-gold p-2 rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden bg-white royal-shadow relative">
+<img class="size-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Elegant hair care shampoo bottle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDUBH0SDoYnLDz0oxANPfAoHkFyGEtPgcnVNPdCvfWwb_sigUoDQwsXOP6eqA4bNKAr9rjdfmoROz_3DwD2Bge4Ztg-Jfmx9XFivxkMZ_57lzbnKDyqH6rJg0NHgH7ruH15Ood2shwH8n-zoxywZAQBXmzPFuSyV8_vi5BIpX8LkTgye_k7yNe0QhzVH7A7J8DUS3A7Y1myMHIzCyB1xbC6zPMQa_D_7Dct09aeayVtPcToBOdZTe2wl5PtZoG1RYF-rSarOrAb6s"/>
+<button class="absolute top-4 right-4 size-10 bg-white rounded-full flex items-center justify-center text-primary/40 hover:text-red-500 transition-colors shadow-lg">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold text-sm fill-current">star</span>
+<span class="text-xs font-bold">4.2</span>
+<span class="text-xs text-primary/40">(450)</span>
+</div>
+<h3 class="font-bold text-lg">Luxe Care Shampoo</h3>
+<p class="text-primary/40 text-sm">250ml Keratin Plus</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xl font-bold">₹179</span>
+<button class="bg-primary/5 hover:bg-gold p-2 rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden bg-white royal-shadow relative">
+<img class="size-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Crunchy potato chips in a bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz7ZJNi1Q9Qam8p5CDJfD2KQol-H9EWS8SOmIlBZKZvhN2IM80Ozpv9hpAujzqmuNGnnuN_kpULI2xZzKTv_WrmZ1iXgXAzon-5vndJEwWvGIUkdEaO42kRywfQ7zClU-nPxvVzbKWgJU6RJhbefEWaIzx2K5e-JpyEk8Hd60YUwNO46jK4Wzk087CmTWDKrw_ZT8wFT4T08DWhKW-kA7sHReJsmlKXHpG6a0RJ-DK2QozcBoordRZHFSUUA8sRgWHabvCMg7Am_g"/>
+<button class="absolute top-4 right-4 size-10 bg-white rounded-full flex items-center justify-center text-primary/40 hover:text-red-500 transition-colors shadow-lg">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold text-sm fill-current">star</span>
+<span class="text-xs font-bold">4.6</span>
+<span class="text-xs text-primary/40">(3k)</span>
+</div>
+<h3 class="font-bold text-lg">Classic Salted Chips</h3>
+<p class="text-primary/40 text-sm">150g Party Pack</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xl font-bold">₹20</span>
+<button class="bg-primary/5 hover:bg-gold p-2 rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden bg-white royal-shadow relative">
+<img class="size-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Cleaning supplies bottle for floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdgNzzREPeV_-T5tR3_EOMBIA_JxYD1eD6qtUa_MW43a9xg3eem1dImP8sF1e9LW5xerxzdxyKtHma2ZIpfWNXGeyKTlgMjnLVn483_eenjIbKVPyZUzLHY79fikjWUP4SA7Up29e2QWt1YwYclU2wevcfDm7w91TLJUw8seCD2VRbvI_kH1z6DqUAxA-2E4FaGOu5lqaLvniZlvl4_QQ6ntcC5YHBrnYsaxUEN42N0KTkagx6rtXv4HMz5M5R3S3TMVH1Ttsm2DM"/>
+<button class="absolute top-4 right-4 size-10 bg-white rounded-full flex items-center justify-center text-primary/40 hover:text-red-500 transition-colors shadow-lg">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold text-sm fill-current">star</span>
+<span class="text-xs font-bold">4.4</span>
+<span class="text-xs text-primary/40">(620)</span>
+</div>
+<h3 class="font-bold text-lg">Pine Floor Cleaner</h3>
+<p class="text-primary/40 text-sm">1L Surface Disinfectant</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xl font-bold">₹129</span>
+<button class="bg-primary/5 hover:bg-gold p-2 rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden bg-white royal-shadow relative">
+<img class="size-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Fresh white eggs in a basket" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXOuUz0-exgNLt8vJ4tKoQJPXZr-A6w5-IGbJ9hvv6iIiHhXcl39mjXEPAmvXonrIMJdJnC-Dab6nkvWBf9F0Cxv9JylXos6O587pn4rpjOB_qYhXZK9nM9VT0dUpDp5KdJIRtmyvEo42EOZQBre4TYvvdSEpMfzrCBLPNKrH3y4i46MkhWHMSaIe6uP09IDh647e6Avo8T7obQaYI_ctRCM6EHBV-RbcI5FxqEPyqnTI4QkqzkKnIdPqa13PLlQPfVICU9A_vhCM"/>
+<button class="absolute top-4 right-4 size-10 bg-white rounded-full flex items-center justify-center text-primary/40 hover:text-red-500 transition-colors shadow-lg">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold text-sm fill-current">star</span>
+<span class="text-xs font-bold">4.9</span>
+<span class="text-xs text-primary/40">(1.5k)</span>
+</div>
+<h3 class="font-bold text-lg">Farm Fresh White Eggs</h3>
+<p class="text-primary/40 text-sm">Tray of 12</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xl font-bold">₹72</span>
+<button class="bg-primary/5 hover:bg-gold p-2 rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden bg-white royal-shadow relative">
+<img class="size-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Salted butter block on a wooden plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZb3np3aMxPq6wMaI632_efP4GgnSAYGFNAGtswu2uPxHTT3CuUB9ErZQApniDMOb_NaYYJvst0yt46aNuMOaHPOJlDJYVYJkW2yLVwqi10LCdNm47TMLMtt8eLudRnRTk9igR701OfJQbR2FU932EQC52ho_LofEb4nS6MW6uYqh6-jrJj7zosM3E5xCkYVVEr4rAdqiEfGNedu42eR3-R3oNSoyxqRN26w-VmbFfm1AA9n-rxwKNLarjfK_kLt_VwbKpcBl825k"/>
+<button class="absolute top-4 right-4 size-10 bg-white rounded-full flex items-center justify-center text-primary/40 hover:text-red-500 transition-colors shadow-lg">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold text-sm fill-current">star</span>
+<span class="text-xs font-bold">4.7</span>
+<span class="text-xs text-primary/40">(2.4k)</span>
+</div>
+<h3 class="font-bold text-lg">Amul Pasteurised Butter</h3>
+<p class="text-primary/40 text-sm">500g Classic Salted</p>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xl font-bold">₹245</span>
+<button class="bg-primary/5 hover:bg-gold p-2 rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+<div class="p-8 rounded-2xl border-2 border-gold/20 hover:border-gold transition-all bg-white group premium-glow">
+<span class="material-symbols-outlined text-4xl text-gold mb-4">bolt</span>
+<h4 class="font-bold text-lg mb-2">10 Min Delivery</h4>
+<p class="text-sm text-primary/60">Fastest delivery service in Chennai right to your door.</p>
+</div>
+<div class="p-8 rounded-2xl border-2 border-gold/20 hover:border-gold transition-all bg-white group premium-glow">
+<span class="material-symbols-outlined text-4xl text-gold mb-4">verified</span>
+<h4 class="font-bold text-lg mb-2">100% Fresh</h4>
+<p class="text-sm text-primary/60">Sourced directly from certified organic farms.</p>
+</div>
+<div class="p-8 rounded-2xl border-2 border-gold/20 hover:border-gold transition-all bg-white group premium-glow">
+<span class="material-symbols-outlined text-4xl text-gold mb-4">shield</span>
+<h4 class="font-bold text-lg mb-2">Secure Payments</h4>
+<p class="text-sm text-primary/60">Your transactions are protected with military grade security.</p>
+</div>
+<div class="p-8 rounded-2xl border-2 border-gold/20 hover:border-gold transition-all bg-white group premium-glow">
+<span class="material-symbols-outlined text-4xl text-gold mb-4">keyboard_return</span>
+<h4 class="font-bold text-lg mb-2">Easy Returns</h4>
+<p class="text-sm text-primary/60">No questions asked 24-hour return policy.</p>
+</div>
+</section>
+</main>
+<footer class="bg-primary text-white pt-20 pb-10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+<div class="lg:col-span-2">
+<div class="flex items-center gap-2 mb-6">
+<div class="size-10 flex items-center justify-center bg-gold rounded-lg"><span class="material-symbols-outlined text-primary text-3xl">crown</span></div>
+<div class="flex flex-col leading-none">
+<span class="font-display text-2xl font-bold tracking-tight text-gold">GridCart</span>
+<span class="text-[10px] uppercase tracking-[0.2em] text-white/80 font-bold">Royal Grocers</span>
+</div>
+</div>
+<p class="text-white/60 mb-8 max-w-sm">Experience the epitome of convenience and quality. GridCart brings the royal market experience to your fingertips with ultra-fast delivery and premium essentials.</p>
+<div class="flex gap-4">
+<a class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gold hover:text-primary transition-all" href="#"><span class="material-symbols-outlined text-xl text-gold">star</span></a>
+<a class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gold hover:text-primary transition-all" href="#"><span class="material-symbols-outlined text-xl text-gold">star</span></a>
+<a class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gold hover:text-primary transition-all" href="#"><span class="material-symbols-outlined text-xl text-gold">star</span></a>
+</div>
+</div>
+<div>
+<h5 class="font-bold text-gold mb-6 uppercase tracking-widest text-xs">Quick Links</h5>
+<ul class="flex flex-col gap-4 text-sm text-white/60">
+<li><a class="hover:text-gold transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-gold transition-colors" href="#">Contact Us</a></li>
+<li><a class="hover:text-gold transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-gold transition-colors" href="#">Partner with us</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-gold mb-6 uppercase tracking-widest text-xs">Customer Service</h5>
+<ul class="flex flex-col gap-4 text-sm text-white/60">
+<li><a class="hover:text-gold transition-colors" href="#">FAQs</a></li>
+<li><a class="hover:text-gold transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-gold transition-colors" href="#">Terms &amp; Conditions</a></li>
+<li><a class="hover:text-gold transition-colors" href="#">Return Policy</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-gold mb-6 uppercase tracking-widest text-xs">Download App</h5>
+<div class="flex flex-col gap-3">
+<button class="flex items-center gap-3 bg-white/5 border border-gold/30 p-3 rounded-xl hover:bg-gold/10 transition-all text-left">
+<span class="material-symbols-outlined text-2xl">shop</span>
+<div class="flex flex-col leading-none">
+<span class="text-[10px] text-white/40 uppercase">Get it on</span>
+<span class="text-sm font-bold">Google Play</span>
+</div>
+</button>
+<button class="flex items-center gap-3 bg-white/5 border border-gold/30 p-3 rounded-xl hover:bg-gold/10 transition-all text-left">
+<span class="material-symbols-outlined text-2xl">ios</span>
+<div class="flex flex-col leading-none">
+<span class="text-[10px] text-white/40 uppercase">Download on</span>
+<span class="text-sm font-bold">App Store</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">
+<p>© 2024 GridCart. All Rights Reserved.</p>
+<div class="flex gap-8">
+<span>GSTIN: 33AAAAA0000A1Z5</span>
+<span>Chennai, India</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

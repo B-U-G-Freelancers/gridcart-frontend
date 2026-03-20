@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Category Product Listing - GridCart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "emerald-dark": "#0F3D3E", // Category headers, primary brand color
+                        "gold": "#D4AF37", // Stars, badges
+                        "green-action": "#14532D", // Add to cart
+                        "background-light": "#F9FAFB",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased selection:bg-emerald-dark/20 selection:text-emerald-dark">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white text-emerald-dark px-4 py-3 lg:px-10 shadow-sm">
+<div class="mx-auto flex max-w-7xl items-center justify-between gap-4">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="flex size-8 items-center justify-center rounded-lg bg-emerald-dark text-gold">
+<span class="material-symbols-outlined !text-[20px]">grid_view</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-emerald-dark">GridCart</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-emerald-dark hover:text-gold transition-colors" href="#">Men</a>
+<a class="text-sm font-medium text-slate-500 hover:text-emerald-dark transition-colors" href="#">Women</a>
+<a class="text-sm font-medium text-slate-500 hover:text-emerald-dark transition-colors" href="#">Accessories</a>
+<a class="text-sm font-medium text-gold hover:text-[#b8952b] transition-colors" href="#">Sale</a>
+</nav>
+</div>
+<div class="flex flex-1 items-center justify-end gap-4 lg:gap-6">
+<div class="hidden md:flex max-w-md w-full">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+<span class="material-symbols-outlined !text-[20px]">search</span>
+</div>
+<input class="block w-full rounded-lg border-0 bg-slate-100 py-2.5 pl-10 pr-4 text-sm text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-emerald-dark placeholder:text-slate-500" placeholder="Search products..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-emerald-dark transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="flex items-center justify-center rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-emerald-dark transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 py-8 lg:px-8">
+<div class="mb-8 flex flex-col gap-4">
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-emerald-dark transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined !text-[16px]">chevron_right</span>
+<a class="hover:text-emerald-dark transition-colors" href="#">Men</a>
+<span class="material-symbols-outlined !text-[16px]">chevron_right</span>
+<span class="font-medium text-emerald-dark dark:text-slate-100">Premium Apparel</span>
+</div>
+<div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+<div>
+<h1 class="text-3xl font-bold tracking-tight text-emerald-dark dark:text-white sm:text-4xl">Men's Premium Apparel</h1>
+<p class="mt-2 text-base text-slate-500 dark:text-slate-400">Discover our latest collection of high-quality essentials designed for modern life.</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-8 lg:flex-row">
+<aside class="w-full lg:w-64 lg:flex-shrink-0">
+<div class="sticky top-24 space-y-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+<div class="flex items-center justify-between">
+<h3 class="font-semibold text-emerald-dark dark:text-white">Filters</h3>
+<button class="text-xs font-medium text-emerald-dark hover:underline">Clear All</button>
+</div>
+<div class="space-y-3">
+<h4 class="text-sm font-medium text-slate-900 dark:text-white">Category</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-3">
+<input checked="" class="size-4 rounded border-slate-300 text-emerald-dark focus:ring-emerald-dark dark:border-slate-600 dark:bg-slate-800" type="checkbox"/>
+<span class="text-sm text-slate-600 dark:text-slate-300">T-Shirts</span>
+</label>
+<label class="flex items-center gap-3">
+<input class="size-4 rounded border-slate-300 text-emerald-dark focus:ring-emerald-dark dark:border-slate-600 dark:bg-slate-800" type="checkbox"/>
+<span class="text-sm text-slate-600 dark:text-slate-300">Jackets &amp; Coats</span>
+</label>
+<label class="flex items-center gap-3">
+<input class="size-4 rounded border-slate-300 text-emerald-dark focus:ring-emerald-dark dark:border-slate-600 dark:bg-slate-800" type="checkbox"/>
+<span class="text-sm text-slate-600 dark:text-slate-300">Denim</span>
+</label>
+<label class="flex items-center gap-3">
+<input class="size-4 rounded border-slate-300 text-emerald-dark focus:ring-emerald-dark dark:border-slate-600 dark:bg-slate-800" type="checkbox"/>
+<span class="text-sm text-slate-600 dark:text-slate-300">Accessories</span>
+</label>
+</div>
+</div>
+<hr class="border-slate-100 dark:border-slate-800"/>
+<div class="space-y-4">
+<h4 class="text-sm font-medium text-slate-900 dark:text-white">Price Range</h4>
+<div class="flex items-center gap-4">
+<div class="relative flex-1">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-500">$</span>
+<input class="w-full rounded-lg border-slate-200 bg-slate-50 px-3 py-2 pl-6 text-sm dark:border-slate-700 dark:bg-slate-900 focus:ring-emerald-dark focus:border-emerald-dark" placeholder="0" type="number"/>
+</div>
+<span class="text-slate-400">-</span>
+<div class="relative flex-1">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-500">$</span>
+<input class="w-full rounded-lg border-slate-200 bg-slate-50 px-3 py-2 pl-6 text-sm dark:border-slate-700 dark:bg-slate-900 focus:ring-emerald-dark focus:border-emerald-dark" placeholder="500" type="number"/>
+</div>
+</div>
+<input class="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-emerald-dark dark:bg-slate-700" type="range"/>
+</div>
+<hr class="border-slate-100 dark:border-slate-800"/>
+<div class="space-y-3">
+<h4 class="text-sm font-medium text-slate-900 dark:text-white">Rating</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="size-4 rounded border-slate-300 text-emerald-dark focus:ring-emerald-dark dark:border-slate-600 dark:bg-slate-800" type="checkbox"/>
+<div class="flex items-center text-gold">
+<span class="material-symbols-outlined !text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined !text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined !text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined !text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined !text-[18px] text-slate-300 dark:text-slate-600">star</span>
+</div>
+<span class="text-xs text-slate-500 group-hover:text-emerald-dark">&amp; Up</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="size-4 rounded border-slate-300 text-emerald-dark focus:ring-emerald-dark dark:border-slate-600 dark:bg-slate-800" type="checkbox"/>
+<div class="flex items-center text-gold">
+<span class="material-symbols-outlined !text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined !text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined !text-[18px] fill-current">star</span>
+<span class="material-symbols-outlined !text-[18px] text-slate-300 dark:text-slate-600">star</span>
+<span class="material-symbols-outlined !text-[18px] text-slate-300 dark:text-slate-600">star</span>
+</div>
+<span class="text-xs text-slate-500 group-hover:text-emerald-dark">&amp; Up</span>
+</label>
+</div>
+</div>
+<hr class="border-slate-100 dark:border-slate-800"/>
+<div class="space-y-3">
+<h4 class="text-sm font-medium text-slate-900 dark:text-white">Brand</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-3">
+<input class="size-4 rounded border-slate-300 text-emerald-dark focus:ring-emerald-dark dark:border-slate-600 dark:bg-slate-800" type="checkbox"/>
+<span class="text-sm text-slate-600 dark:text-slate-300">LuxeBasic</span>
+</label>
+<label class="flex items-center gap-3">
+<input class="size-4 rounded border-slate-300 text-emerald-dark focus:ring-emerald-dark dark:border-slate-600 dark:bg-slate-800" type="checkbox"/>
+<span class="text-sm text-slate-600 dark:text-slate-300">UrbanThread</span>
+</label>
+<label class="flex items-center gap-3">
+<input class="size-4 rounded border-slate-300 text-emerald-dark focus:ring-emerald-dark dark:border-slate-600 dark:bg-slate-800" type="checkbox"/>
+<span class="text-sm text-slate-600 dark:text-slate-300">ModaFine</span>
+</label>
+</div>
+</div>
+</div>
+</aside>
+<section class="flex-1">
+<div class="mb-6 flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950 sm:flex-row sm:items-center sm:justify-between">
+<span class="text-sm font-medium text-slate-600 dark:text-slate-300">Showing <span class="text-slate-900 dark:text-white font-semibold">1-9</span> of <span class="text-slate-900 dark:text-white font-semibold">145</span> results</span>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<label class="hidden text-sm text-slate-500 sm:block" for="sort">Sort by:</label>
+<select class="block w-40 rounded-lg border-0 bg-slate-50 py-2 pl-3 pr-8 text-sm text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-emerald-dark dark:bg-slate-900 dark:text-white dark:ring-slate-700" id="sort">
+<option>Newest Arrivals</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Best Selling</option>
+</select>
+</div>
+<div class="hidden h-6 w-px bg-slate-200 dark:bg-slate-700 sm:block"></div>
+<div class="flex items-center gap-1 rounded-lg bg-slate-50 p-1 dark:bg-slate-900">
+<button class="rounded p-1.5 text-emerald-dark shadow-sm bg-white dark:bg-slate-800 dark:text-white">
+<span class="material-symbols-outlined !text-[20px]">grid_view</span>
+</button>
+<button class="rounded p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+<span class="material-symbols-outlined !text-[20px]">view_list</span>
+</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+<div class="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-slate-200">
+<img alt="Man wearing a white t-shirt looking away" class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105" data-alt="Man wearing a white t-shirt looking away" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB447-l21iKLi7HxB3DQzKfZvqp3nji99sQRf6eJ4AQZP8pgiHF19Z1K02PrvaFUCbCScbHIQMjqDjITrQ2mz9WAqeN6B35dKWh5ynkUzSHF9U5oY-KMbcp771hdOcNsw86y5bybRORy6VgqV1O0br0-KTgrPkHrM8u8Dg27q7nFoON8EJ1pw9R0l3rOZU9D32oG4YDI8au7jkeXPs5WUBqJyrOjS4ImyL_Tqo7WVMhuCimvaQgy1tuoBlvPGp4N3laBy3l08iM4no"/>
+<div class="absolute right-3 top-3 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">favorite</span>
+</button>
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">visibility</span>
+</button>
+</div>
+<div class="absolute bottom-0 w-full translate-y-full bg-white/90 px-4 py-3 backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0 dark:bg-slate-900/90">
+<button class="w-full rounded-lg bg-green-action py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0c391e]">Add to Cart</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 text-xs font-medium text-slate-500">T-Shirts</div>
+<h3 class="mb-1 text-base font-semibold text-emerald-dark dark:text-white">
+<a href="#"><span aria-hidden="true" class="absolute inset-0"></span>Essential Cotton Crewneck</a>
+</h3>
+<div class="mt-auto flex items-center justify-between">
+<p class="text-lg font-bold text-slate-900 dark:text-white">$45.00</p>
+<div class="flex items-center text-gold text-xs">
+<span class="material-symbols-outlined !text-[16px] fill-current">star</span>
+<span class="ml-1 text-slate-600 dark:text-slate-400">4.8 (120)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-slate-200">
+<div class="absolute left-3 top-3 z-10 rounded bg-gold px-2 py-1 text-xs font-bold text-emerald-dark shadow-sm">SALE</div>
+<img alt="Close up of a denim jacket texture" class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105" data-alt="Close up of a denim jacket texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRIyX7h6TPzJl6cVbefBDfTuc5OlTwm35Oo0WGn9NEpSqnD6DtXz_K4K0bOId9gjLI9tQhGTJLKu1UCogwhKlon6HdfWz4irnMCfOyuR6Q_BBN6XCT-BunTFoNw9OUQiNbQhvaK4HD9rtkD_6D3N0cD3YBWFogpUyiWFMQVkcEEY2EvgT-cRp9NLjmuqcDSWLT-n7nL_EQUNF2J2UmBB3grs0LMZ2nIOiK0jWhDMe67HDaO1mxm53ZCOM7nL_dKjMi9obU6hThkQM"/>
+<div class="absolute right-3 top-3 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">favorite</span>
+</button>
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">visibility</span>
+</button>
+</div>
+<div class="absolute bottom-0 w-full translate-y-full bg-white/90 px-4 py-3 backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0 dark:bg-slate-900/90">
+<button class="w-full rounded-lg bg-green-action py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0c391e]">Add to Cart</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 text-xs font-medium text-slate-500">Outerwear</div>
+<h3 class="mb-1 text-base font-semibold text-emerald-dark dark:text-white">
+<a href="#"><span aria-hidden="true" class="absolute inset-0"></span>Classic Denim Jacket</a>
+</h3>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-baseline gap-2">
+<p class="text-lg font-bold text-slate-900 dark:text-white">$89.00</p>
+<p class="text-sm text-slate-400 line-through">$120.00</p>
+</div>
+<div class="flex items-center text-gold text-xs">
+<span class="material-symbols-outlined !text-[16px] fill-current">star</span>
+<span class="ml-1 text-slate-600 dark:text-slate-400">4.5 (85)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-slate-200">
+<img alt="Man wearing a black coat outdoors" class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105" data-alt="Man wearing a black coat outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLLnDOdPxhl4bef0Niy7hvfAMIh_jwIVFt7ZTkbXG6p3uiSI1bh4vwbR0rqZRhtkP7W20PG_40b399GpmHFKCW093xgMUQrMNH6VMXZufmZRaeUhmlsrrR66MlV4g8DM-aIIwoBcL4YVXZhHdJbUQnU0Yn7gYxIslP-1vTSsEHe3dgChgsdiEKZFsMNVQaNusli3WOploVgz0Mz7pnPFQXaR0hqLM9__goxh63LUFzlwDST5rO8hw-QPHYaxvSkNJmIb5BDPdcLTg"/>
+<div class="absolute right-3 top-3 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">favorite</span>
+</button>
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">visibility</span>
+</button>
+</div>
+<div class="absolute bottom-0 w-full translate-y-full bg-white/90 px-4 py-3 backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0 dark:bg-slate-900/90">
+<button class="w-full rounded-lg bg-green-action py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0c391e]">Add to Cart</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 text-xs font-medium text-slate-500">Coats</div>
+<h3 class="mb-1 text-base font-semibold text-emerald-dark dark:text-white">
+<a href="#"><span aria-hidden="true" class="absolute inset-0"></span>Wool Blend Overcoat</a>
+</h3>
+<div class="mt-auto flex items-center justify-between">
+<p class="text-lg font-bold text-slate-900 dark:text-white">$195.00</p>
+<div class="flex items-center text-gold text-xs">
+<span class="material-symbols-outlined !text-[16px] fill-current">star</span>
+<span class="ml-1 text-slate-600 dark:text-slate-400">5.0 (42)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-slate-200">
+<img alt="Plain black t-shirt folded" class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105" data-alt="Plain black t-shirt folded" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRIuyKhcPUImGFCDElqKjVBl9TZUtOvPZ45-dp6mz0fwKaKW2OqJ782EwYrDpDtJxRdFYgV9J30S25ajiKyzplf8GGKGziEeKwuE316XaXkfSE0okmgnCdGKsW1f2vzZpe6XhMXIeAWlH5EXLne9vO_0TwUGEXLA2wj9-HdC0bZWnUjH1-xnTLY5Acc-KBhbvDL5jWuCzg1La0DwWr5RLUpi4Rcoe8KIvIZdsWnGDhgHgrZzKsJPA-OehDGH0bbXb5HJKGVVm0fpQ"/>
+<div class="absolute right-3 top-3 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">favorite</span>
+</button>
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">visibility</span>
+</button>
+</div>
+<div class="absolute bottom-0 w-full translate-y-full bg-white/90 px-4 py-3 backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0 dark:bg-slate-900/90">
+<button class="w-full rounded-lg bg-green-action py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0c391e]">Add to Cart</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 text-xs font-medium text-slate-500">T-Shirts</div>
+<h3 class="mb-1 text-base font-semibold text-emerald-dark dark:text-white">
+<a href="#"><span aria-hidden="true" class="absolute inset-0"></span>Everyday Black Tee</a>
+</h3>
+<div class="mt-auto flex items-center justify-between">
+<p class="text-lg font-bold text-slate-900 dark:text-white">$35.00</p>
+<div class="flex items-center text-gold text-xs">
+<span class="material-symbols-outlined !text-[16px] fill-current">star</span>
+<span class="ml-1 text-slate-600 dark:text-slate-400">4.2 (18)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-slate-200">
+<img alt="Man sitting in casual wear with phone" class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105" data-alt="Man sitting in casual wear with phone" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGpZvHR-i2hMoEEmJAEb_2MPxEk9I75zBV6ncOgrFKJY7_dVXD9UUNpzl8Vs-xv-2Ig5jApfQAPDPKwUTcz_dOE3XVcAE-FPY9dVrfbhSF5w-dBTgSZxCcfKaic3aKNIKJq4eyNaD6PASYFHZU2B64Go4JXJ-TBMmgLOvRKRCrtmonYc92Y50_fquv4YSHC-R0-VumCNzrV4PRumzrqPuEp6gR0zZxXPd8ST7ze9Tdb2ME6h9j0bGHG85rl3P41zio6DgHqTsYw2Y"/>
+<div class="absolute right-3 top-3 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">favorite</span>
+</button>
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">visibility</span>
+</button>
+</div>
+<div class="absolute bottom-0 w-full translate-y-full bg-white/90 px-4 py-3 backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0 dark:bg-slate-900/90">
+<button class="w-full rounded-lg bg-green-action py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0c391e]">Add to Cart</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 text-xs font-medium text-slate-500">Pants</div>
+<h3 class="mb-1 text-base font-semibold text-emerald-dark dark:text-white">
+<a href="#"><span aria-hidden="true" class="absolute inset-0"></span>Slim Fit Chinos</a>
+</h3>
+<div class="mt-auto flex items-center justify-between">
+<p class="text-lg font-bold text-slate-900 dark:text-white">$65.00</p>
+<div class="flex items-center text-gold text-xs">
+<span class="material-symbols-outlined !text-[16px] fill-current">star</span>
+<span class="ml-1 text-slate-600 dark:text-slate-400">4.6 (56)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-slate-200">
+<img alt="Man in grey hoodie looking pensive" class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105" data-alt="Man in grey hoodie looking pensive" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5NVMZ-Q4ZKjQTQItvBtlCe7hEs3gZaT80jEF2lXKD0nJSi24XbxkmevHQbZKfCkIq1ZE3RStn918YcPNO5BV_c-_rQk1Cy8YK6zOYpoRDmaeL5fOmMhCMsu6TLTynhOrqV92l1UNYWiULXJJpD948BdR4CJ4Ey0ry_WT3GoTMyZS6SnegQi7PUBPbNx9EOqyKLtgXWVCLnm5ov3Y1Ky3mS_zBRe5NRcJaHsdaZzuuayI3IJht_Ot71rRwI9990j_GgDzLGjQhPi8"/>
+<div class="absolute right-3 top-3 flex flex-col gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">favorite</span>
+</button>
+<button class="flex size-8 items-center justify-center rounded-full bg-white text-slate-900 shadow-md hover:text-emerald-dark dark:bg-slate-900 dark:text-white">
+<span class="material-symbols-outlined !text-[18px]">visibility</span>
+</button>
+</div>
+<div class="absolute bottom-0 w-full translate-y-full bg-white/90 px-4 py-3 backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0 dark:bg-slate-900/90">
+<button class="w-full rounded-lg bg-green-action py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0c391e]">Add to Cart</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 text-xs font-medium text-slate-500">Hoodies</div>
+<h3 class="mb-1 text-base font-semibold text-emerald-dark dark:text-white">
+<a href="#"><span aria-hidden="true" class="absolute inset-0"></span>Premium Fleece Hoodie</a>
+</h3>
+<div class="mt-auto flex items-center justify-between">
+<p class="text-lg font-bold text-slate-900 dark:text-white">$75.00</p>
+<div class="flex items-center text-gold text-xs">
+<span class="material-symbols-outlined !text-[16px] fill-current">star</span>
+<span class="ml-1 text-slate-600 dark:text-slate-400">4.9 (203)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 flex items-center justify-center border-t border-slate-200 pt-8 dark:border-slate-800">
+<nav aria-label="Pagination" class="flex items-center gap-1">
+<a class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center rounded-lg border border-transparent px-2.5 text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white" href="#">
+<span class="material-symbols-outlined !text-[18px]">chevron_left</span>
+<span class="sr-only">Previous</span>
+</a>
+<a aria-current="page" class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center rounded-lg bg-emerald-dark px-3 text-sm font-medium text-white shadow-sm" href="#">1</a>
+<a class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center rounded-lg border border-transparent px-3 text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white" href="#">2</a>
+<a class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center rounded-lg border border-transparent px-3 text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white" href="#">3</a>
+<span class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center px-1.5 text-sm text-slate-400">...</span>
+<a class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center rounded-lg border border-transparent px-3 text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white" href="#">12</a>
+<a class="inline-flex min-h-[38px] min-w-[38px] items-center justify-center rounded-lg border border-transparent px-2.5 text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white" href="#">
+<span class="sr-only">Next</span>
+<span class="material-symbols-outlined !text-[18px]">chevron_right</span>
+</a>
+</nav>
+</div>
+</section>
+</div>
+</main>
+<footer class="mt-12 border-t border-slate-200 bg-white py-12 dark:border-slate-800 dark:bg-slate-950">
+<div class="mx-auto max-w-7xl px-4 text-center lg:px-8">
+<p class="text-sm text-slate-500 dark:text-slate-400">© 2024 GridCart. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</body></html>

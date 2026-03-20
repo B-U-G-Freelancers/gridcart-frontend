@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GridCart - User Authentication</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+            extend: {
+                colors: {
+                    "brand-emerald": "#0F3D3E", // Deep emerald for brand elements
+                    "action-green": "#14532D", // Rich green for buttons
+                    "action-green-hover": "#104224", 
+                    "accent-gold": "#D4AF37", // Gold for links/accents
+                    "accent-gold-hover": "#bfa030",
+                    "background-light": "#f6f8f7",
+                    "background-dark": "#131f1b",
+                    "neutral-light": "#dde4e2",
+                },
+                fontFamily: {
+                    "display": ["Inter", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased min-h-screen flex flex-col relative">
+<header class="flex items-center justify-between border-b border-neutral-light bg-white px-6 py-4 sticky top-0 z-10 shadow-sm">
+<div class="flex items-center gap-3 text-brand-emerald">
+<div class="size-6 text-brand-emerald">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight">GridCart</h2>
+</div>
+<div class="hidden sm:flex gap-6">
+<a class="text-sm font-medium text-slate-600 hover:text-brand-emerald transition-colors" href="#">Help</a>
+<a class="text-sm font-medium text-slate-600 hover:text-brand-emerald transition-colors" href="#">Contact</a>
+</div>
+</header>
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-sm overflow-y-auto">
+<main class="w-full max-w-5xl bg-white dark:bg-background-dark rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-auto max-h-[90vh]">
+<div class="hidden md:flex md:w-5/12 relative bg-brand-emerald overflow-hidden items-center justify-center min-h-[600px]">
+<div class="absolute inset-0 z-0">
+<img alt="Elegant fashion model in luxury coat walking" class="w-full h-full object-cover opacity-60 mix-blend-overlay" data-alt="Elegant fashion model in luxury coat walking" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzcGjbRAlbvDhNG5nSL3zNtCsAYQbH_N6zmLb3b1qTOCjPJNZCvOO1-DNT9L6gmKrygnuaTwtEQdL8wkI-OED7KlHCMyMzZR-1h89Tzy0q3H-_T4zHuxNKKRsKvShl1nlEhWJUMeGsHmtv2ZjktadHadu1uuj3iHTirxph9iEaG6_3iqkcXZJdX_6565K_BPKUGZZYwJWRTdAxgtvG-gmIIPz8W8jWyxroiQs342PaUK6pE0WiVKl512FLBM3Z3Sswadt9MNCcC4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-brand-emerald via-brand-emerald/40 to-transparent"></div>
+</div>
+<div class="relative z-10 p-8 text-center max-w-xs">
+<h1 class="text-white text-3xl font-black mb-4 tracking-tight leading-tight">
+                        Redefining <br/> Luxury Retail
+                    </h1>
+<p class="text-white/90 text-sm font-light leading-relaxed mb-6">
+                        Join our exclusive community to access premium collections, personalized styling, and early releases.
+                    </p>
+<div class="flex justify-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-gold"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-7/12 flex flex-col overflow-y-auto relative">
+<button class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 z-20">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="flex-1 flex flex-col justify-center items-center px-6 py-8 sm:px-12 md:px-16">
+<div class="w-full max-w-sm space-y-6">
+<div class="flex flex-col gap-2 mb-6 text-center">
+<h2 class="text-2xl font-bold tracking-tight text-brand-emerald dark:text-slate-100">Create Account</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">Join GridCart to explore our exclusive collections.</p>
+</div>
+<div class="bg-background-light dark:bg-slate-800 p-1 rounded-lg flex mb-6">
+<button class="flex-1 py-2 text-sm font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-brand-emerald dark:hover:text-white transition-all">
+                                Sign In
+                            </button>
+<button class="flex-1 py-2 text-sm font-semibold rounded-md bg-white dark:bg-slate-700 shadow-sm text-brand-emerald dark:text-white transition-all border border-neutral-light dark:border-slate-600">
+                                Create Account
+                            </button>
+</div>
+<form action="#" class="space-y-4">
+<div class="space-y-1.5">
+<label class="block text-sm font-medium text-brand-emerald dark:text-slate-300" for="mobile">
+                                    Mobile Number
+                                </label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="text-slate-500 text-sm font-medium">+1</span>
+<span class="mx-2 h-4 border-r border-slate-300"></span>
+</div>
+<input class="block w-full rounded-lg border-neutral-light dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-brand-emerald focus:ring-brand-emerald sm:text-sm py-2.5 pl-14 pr-3" id="mobile" name="mobile" placeholder="(555) 000-0000" type="tel"/>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+<span class="material-symbols-outlined text-slate-400 text-[18px]">smartphone</span>
+</div>
+</div>
+<p class="text-xs text-slate-500 mt-1.5">
+                                    We will send a verification code to this number
+                                </p>
+</div>
+<button class="flex w-full justify-center rounded-lg bg-action-green py-2.5 px-4 text-sm font-bold text-white shadow-sm hover:bg-action-green-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-green transition-colors mt-4" type="submit">
+                                Continue
+                            </button>
+</form>
+<div class="py-4 text-center mt-4">
+<p class="text-[11px] text-slate-400">
+                                By continuing, you agree to our 
+                                <a class="underline hover:text-brand-emerald dark:hover:text-white" href="#">Terms of Service</a> 
+                                and 
+                                <a class="underline hover:text-brand-emerald dark:hover:text-white" href="#">Privacy Policy</a>.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

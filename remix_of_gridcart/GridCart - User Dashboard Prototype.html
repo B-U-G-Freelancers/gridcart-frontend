@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>GridCart - User Dashboard Prototype</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#D4AF37",
+                        "secondary": "#14532D",
+                        "emerald-dark": "#0F3D3E",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div id="root"></div>
+
+    <!-- React Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { createRoot } = ReactDOM;
+        const { MemoryRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
+
+        // --- Components ---
+
+        const Header = () => (
+            <header class="bg-white dark:bg-[#0F3D3E] border-b border-gray-100 dark:border-[#1a4a4b] sticky top-0 z-50">
+                <div class="px-4 md:px-10 py-3 flex items-center justify-between">
+                    <div class="flex items-center gap-8">
+                        <Link to="/" class="flex items-center gap-4">
+                            <div class="size-8 text-[#0F3D3E] dark:text-primary">
+                                <svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                    <g clipPath="url(#clip0_6_535)">
+                                        <path clipRule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fillRule="evenodd"></path>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_6_535"><rect fill="white" height="48" width="48"></rect></clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-[#0F3D3E] dark:text-white">GridCart</h2>
+                        </Link>
+                        <nav class="hidden md:flex items-center gap-9">
+                            <a class="text-sm font-medium text-[#0F3D3E] hover:text-primary transition-colors dark:text-white dark:hover:text-primary" href="#">Shop</a>
+                            <a class="text-sm font-medium text-[#0F3D3E] hover:text-primary transition-colors dark:text-white dark:hover:text-primary" href="#">Collections</a>
+                            <a class="text-sm font-medium text-[#0F3D3E] hover:text-primary transition-colors dark:text-white dark:hover:text-primary" href="#">About</a>
+                            <a class="text-sm font-medium text-[#0F3D3E] hover:text-primary transition-colors dark:text-white dark:hover:text-primary" href="#">Journal</a>
+                        </nav>
+                    </div>
+                    <div class="flex items-center gap-4 md:gap-8">
+                        <label class="hidden md:flex flex-col w-64 h-10">
+                            <div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-[#f0f4f3] dark:bg-[#154647] border border-transparent focus-within:border-emerald-dark/20">
+                                <div class="flex items-center justify-center pl-4 pr-2 text-[#61897c]">
+                                    <span class="material-symbols-outlined text-[20px]">search</span>
+                                </div>
+                                <input class="w-full bg-transparent border-none focus:ring-0 text-sm placeholder:text-[#61897c] text-emerald-dark dark:text-slate-100" placeholder="Search..."/>
+                            </div>
+                        </label>
+                        <div class="flex gap-2">
+                            <button class="flex items-center justify-center size-10 rounded-lg bg-[#f0f4f3] dark:bg-[#154647] hover:bg-gray-200 dark:hover:bg-[#1e5759] transition-colors">
+                                <span class="material-symbols-outlined text-[20px] text-[#0F3D3E] dark:text-primary">shopping_cart</span>
+                            </button>
+                            <button class="flex items-center justify-center size-10 rounded-lg bg-[#f0f4f3] dark:bg-[#154647] hover:bg-gray-200 dark:hover:bg-[#1e5759] transition-colors relative">
+                                <span class="material-symbols-outlined text-[20px] text-[#0F3D3E] dark:text-primary">notifications</span>
+                                <span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-white dark:border-[#154647]"></span>
+                            </button>
+                            <Link to="/" class="flex items-center justify-center size-10 rounded-lg bg-secondary text-primary font-bold hover:bg-[#1e6f3d] transition-colors">
+                                <span class="material-symbols-outlined text-[20px]">person</span>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        );
+
+        const Sidebar = () => {
+            const location = useLocation();
+            
+            // Helper to determine active class
+            const getLinkClass = (path) => {
+                const isActive = location.pathname === path;
+                if (isActive) {
+                    return "flex items-center gap-3 px-4 py-3 rounded-lg bg-[#14532D] text-primary font-bold transition-all border-l-4 border-primary shadow-sm";
+                }
+                return "flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-100/80 hover:bg-[#14532D] hover:text-primary font-medium transition-all group";
+            };
+
+            const getIconClass = (path) => {
+                const isActive = location.pathname === path;
+                return isActive ? "text-primary" : "group-hover:text-primary transition-colors";
+            };
+
+            return (
+                <aside class="w-full lg:w-72 flex-shrink-0">
+                    <div class="bg-emerald-dark dark:bg-emerald-dark rounded-xl p-6 shadow-lg border border-emerald-900/10 dark:border-emerald-800 sticky top-24 text-white">
+                        <div class="flex items-center gap-4 mb-8 pb-8 border-b border-emerald-800">
+                            <div class="relative size-14">
+                                <img alt="Profile picture of a smiling woman with glasses" class="w-full h-full object-cover rounded-full border-2 border-primary shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWNOs9GcK-ssSpzJV6egMGtbbJ8zm6JFh4mvR--_5_E0Q-MK4KRfWpp7aFPM_I1DOU0QS16HTzzJstvEl2qV771WSGXCU0VwKnjcov_Eiyack20r4pNNGZzbfA0Wohzelvn8FNryq_mI47gPhtgfGBP72MQtNNZ3LcUUh-V546jLEXjwzEe8sp5YIgF-sxKzXE6NeUvQ9T44INI40-6KNrd12CcosPOqKTaPHa0KWw5ZRDAUKe8KjAPTeL7DY4VWn3KSEsAiOxTxY"/>
+                                <div class="absolute bottom-0 right-0 size-4 bg-primary rounded-full border-2 border-emerald-dark"></div>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg leading-tight text-white">Alex Morgan</h3>
+                                <p class="text-sm text-primary font-medium">Gold Member</p>
+                            </div>
+                        </div>
+                        <nav class="flex flex-col gap-2">
+                            <Link to="/" class={getLinkClass('/')}>
+                                <span class={`material-symbols-outlined ${getIconClass('/')}`}>person</span>
+                                Personal Info
+                            </Link>
+                            <Link to="/orders" class={getLinkClass('/orders')}>
+                                <span class={`material-symbols-outlined ${getIconClass('/orders')}`}>package_2</span>
+                                My Orders
+                            </Link>
+                            <Link to="/addresses" class={getLinkClass('/addresses')}>
+                                <span class={`material-symbols-outlined ${getIconClass('/addresses')}`}>location_on</span>
+                                Saved Addresses
+                            </Link>
+                            <Link to="/wishlist" class={getLinkClass('/wishlist')}>
+                                <div class="relative">
+                                    <span class={`material-symbols-outlined ${getIconClass('/wishlist')}`}>favorite</span>
+                                    <span class="absolute -top-1 -right-1 size-2 bg-primary rounded-full"></span>
+                                </div>
+                                Wishlist
+                            </Link>
+                            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-100/60 hover:bg-[#14532D] hover:text-white font-medium transition-all group mt-4 border-t border-emerald-800 pt-6" href="#">
+                                <span class="material-symbols-outlined group-hover:text-red-400 transition-colors">logout</span>
+                                Sign Out
+                            </a>
+                        </nav>
+                    </div>
+                </aside>
+            );
+        };
+
+        // --- Screens ---
+
+        const ProfileScreen = () => {
+            return (
+                <div class="flex-1 space-y-8">
+                    <div class="bg-emerald-dark rounded-xl p-8 relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Welcome back, Alex!</h1>
+                            <p class="text-gray-300 max-w-lg">Manage your personal information, track your orders, and keep your wishlist up to date.</p>
+                        </div>
+                        <div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-primary/20 to-transparent pointer-events-none"></div>
+                        <div class="absolute -bottom-10 -right-10 size-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+                    </div>
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+                        <section class="xl:col-span-2 bg-white dark:bg-[#0F3D3E] rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-[#1a4a4b]">
+                            <div class="flex items-center justify-between mb-8">
+                                <div>
+                                    <h2 class="text-xl font-bold mb-1 dark:text-white">Personal Information</h2>
+                                    <p class="text-sm text-slate-500 dark:text-emerald-100/70">Update your photo and personal details.</p>
+                                </div>
+                                <button class="text-sm text-secondary dark:text-primary font-bold hover:underline">Cancel</button>
+                            </div>
+                            <form class="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium text-slate-700 dark:text-emerald-100">First Name</label>
+                                        <input class="w-full h-12 rounded-lg border-gray-200 dark:border-[#1a4a4b] bg-gray-50 dark:bg-[#154647] focus:border-primary focus:ring-primary dark:text-white px-4" type="text" defaultValue="Alex"/>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium text-slate-700 dark:text-emerald-100">Last Name</label>
+                                        <input class="w-full h-12 rounded-lg border-gray-200 dark:border-[#1a4a4b] bg-gray-50 dark:bg-[#154647] focus:border-primary focus:ring-primary dark:text-white px-4" type="text" defaultValue="Morgan"/>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium text-slate-700 dark:text-emerald-100">Email Address</label>
+                                        <div class="relative">
+                                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined text-[20px]">mail</span>
+                                            <input class="w-full h-12 rounded-lg border-gray-200 dark:border-[#1a4a4b] bg-gray-50 dark:bg-[#154647] focus:border-primary focus:ring-primary dark:text-white pl-11 pr-4" type="email" defaultValue="alex.morgan@example.com"/>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium text-slate-700 dark:text-emerald-100">Phone Number</label>
+                                        <div class="relative">
+                                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined text-[20px]">call</span>
+                                            <input class="w-full h-12 rounded-lg border-gray-200 dark:border-[#1a4a4b] bg-gray-50 dark:bg-[#154647] focus:border-primary focus:ring-primary dark:text-white pl-11 pr-4" type="tel" defaultValue="+1 (555) 000-1234"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-6 border-t border-gray-100 dark:border-[#1a4a4b]">
+                                    <h3 class="text-base font-bold mb-4 dark:text-white">Security</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium text-slate-700 dark:text-emerald-100">Current Password</label>
+                                            <input class="w-full h-12 rounded-lg border-gray-200 dark:border-[#1a4a4b] bg-gray-50 dark:bg-[#154647] focus:border-primary focus:ring-primary dark:text-white px-4" type="password" defaultValue="********"/>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-medium text-slate-700 dark:text-emerald-100">New Password</label>
+                                            <input class="w-full h-12 rounded-lg border-gray-200 dark:border-[#1a4a4b] bg-gray-50 dark:bg-[#154647] focus:border-primary focus:ring-primary dark:text-white px-4" placeholder="Leave blank to keep current" type="password"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end pt-4">
+                                    <button class="bg-secondary hover:bg-[#1e6f3d] text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-emerald-900/20 transition-all" type="button">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </section>
+                        <div class="space-y-8">
+                            <div class="bg-emerald-dark/5 dark:bg-primary/10 rounded-xl p-6 border border-emerald-900/10 dark:border-primary/20">
+                                <h3 class="font-bold text-lg mb-4 flex items-center gap-2 text-emerald-900 dark:text-primary">
+                                    <span class="material-symbols-outlined text-primary">emoji_events</span>
+                                    Membership Status
+                                </h3>
+                                <div class="flex items-end justify-between mb-2">
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Current Tier</span>
+                                    <span class="text-primary font-bold">Gold Member</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-4">
+                                    <div class="bg-primary h-2.5 rounded-full w-[70%]"></div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Spend $240 more to reach Platinum status and unlock free overnight shipping.</p>
+                            </div>
+                            <div class="bg-white dark:bg-[#0F3D3E] rounded-xl p-6 shadow-sm border border-gray-100 dark:border-[#1a4a4b]">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-bold text-lg dark:text-white">Wishlist</h3>
+                                    <Link to="/wishlist" class="text-sm text-secondary dark:text-primary font-medium hover:underline">View All</Link>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex gap-4 items-center">
+                                        <div class="size-16 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
+                                            <img alt="Minimalist beige leather handbag" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv7EfysU6IYwEsmTr2aGi1wdrgH15Y6Z3QPML8oyQoXyxxqnUoerUD1fHBUgArVQoqbnAJdsYYvuyiLxCj8ENEeL_fRoJbWRcx8GH2mNpoGVoyM0lUa0R1NoWAO7dCNd_VCVSkDRgJ3srST5blCkxhJxS3y-ALRG432xISRXq00GMPBXWeX6N1RbOr4r5rYbAmvdBSiobjIhz2AnNic-1tBXC4sLhBntLWtojfOSdY02JZ-p5W2Ca_XmmKgN1nG99-EtwkAlCS8sU"/>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="text-sm font-medium truncate dark:text-white">Minimalist Leather Tote</h4>
+                                            <p class="text-xs text-slate-500 mb-1">Accessories</p>
+                                            <p class="text-sm font-bold dark:text-primary">$245.00</p>
+                                        </div>
+                                        <button class="text-slate-400 hover:text-secondary dark:hover:text-primary transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                        </button>
+                                    </div>
+                                    <div class="flex gap-4 items-center">
+                                        <div class="size-16 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
+                                            <img alt="Red athletic sneakers on white background" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYb4yI_c_NPE0u4HrZ_OyvXYHTl51Qr0yL3WeMRRr8g_g8jJYOE79vmQ347woO3QS5X1Bcr8DaYamXnKRYZqaCLWmtBUHyEK1kgO5DnA4olxKoHpwqJAUpZ0PGt2GvkePFRlmHMS8LI7_ZSALwhHf8H5u0nSpKf0cys0Fjt1FO83GT5Eb_VQB5DmW0vcRzlpJnTsk1yYUASOlqlBaBDaCU6VgDL3FrZ13zGn7CFKjHvu1amGmW5hps_ZBRyLKUD06WvcqIJ0Cc0SA"/>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="text-sm font-medium truncate dark:text-white">Urban Runner Sneakers</h4>
+                                            <p class="text-xs text-slate-500 mb-1">Footwear</p>
+                                            <p class="text-sm font-bold dark:text-primary">$129.00</p>
+                                        </div>
+                                        <button class="text-slate-400 hover:text-secondary dark:hover:text-primary transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="bg-white dark:bg-[#0F3D3E] rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-[#1a4a4b]">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                            <h2 class="text-xl font-bold dark:text-white">Recent Orders</h2>
+                            <div class="flex gap-2">
+                                <select class="form-select bg-gray-50 dark:bg-[#154647] dark:text-emerald-100 border-none rounded-lg text-sm px-4 py-2 focus:ring-1 focus:ring-primary">
+                                    <option>Last 30 days</option>
+                                    <option>Last 3 months</option>
+                                    <option>2023</option>
+                                </select>
+                                <button class="bg-gray-50 dark:bg-[#154647] dark:text-emerald-100 text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#1e5759] transition-colors">Download Invoice</button>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="border border-gray-100 dark:border-[#1a4a4b] rounded-lg p-4 md:p-6 hover:shadow-md transition-shadow">
+                                <div class="flex flex-col md:flex-row gap-6 justify-between items-start md:items-center mb-6">
+                                    <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
+                                        <div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide">Order Placed</p>
+                                            <p class="font-medium text-sm dark:text-emerald-100">Oct 24, 2023</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide">Total</p>
+                                            <p class="font-medium text-sm dark:text-emerald-100">$320.50</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide">Ship To</p>
+                                            <p class="font-medium text-sm text-secondary dark:text-primary cursor-pointer hover:underline relative group">
+                                                Alex Morgan
+                                                <span class="hidden group-hover:block absolute top-full left-0 bg-white dark:bg-black p-2 shadow-lg rounded text-xs w-40 z-10 border border-gray-100 dark:border-gray-800">123 Market St, San Francisco, CA</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
+                                        <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold uppercase tracking-wide">
+                                            <span class="size-2 rounded-full bg-green-500"></span>
+                                            Delivered
+                                        </div>
+                                        <p class="text-sm font-mono text-slate-500">#ORD-7782-90</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+                                    <div class="flex -space-x-3">
+                                        <img alt="White minimalistic watch" class="size-10 rounded-full border-2 border-white dark:border-[#0F3D3E] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5kL6j1qPJ4va_fPPYqNvw6VPZIFjTRC2aV6rKvdYM2-5PZ6zLQG-thKPL845ydwgCP0mCSwjIWl3Cp7NwpUvGwEVmrBp3wgS6Ru19f-7uMOcEg6sU1R83sZMXRM9hHjGg6oNhijgnnB0cn06VdVS_2-bhKe8cfJor0MqHeee-_BWIanJzYirz4rpAgwSfZP6zSOAPZqqKDu6LU1u7oT1qZkk7H2bljfMdBWGGW-_vGFDTbWJfdGipiOAGo-GP_3foHDn9UNbAPUM"/>
+                                        <img alt="Wireless headphones" class="size-10 rounded-full border-2 border-white dark:border-[#0F3D3E] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDriXf61G3Sq7-h0pVsnfpvXb_MYA73SmNDVROcqhCoeGsLzNdijzfAIR6x8Ky3wv6B9KbFx14GnB7mqfTSt8zKfR4lOFA_8Tgteh1S_pwBsHALlLOp75gLQVpl51uv45dgKuJAMSvbk_4bLB_pbDR54_X7J1tk8dpZzs002nzazLoTYlPTa6J6mMFfpSl0nAQkC7HiBtK2LME6nNmnTYkEHIZJ9enuH04-E0hENbAibpfZzBxsMmoskcObrMLE4xN2RD6AR5UhepU"/>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm text-slate-600 dark:text-slate-400"><span class="font-bold text-slate-900 dark:text-white">2 items</span> purchased</p>
+                                    </div>
+                                    <div class="flex gap-3">
+                                        <button class="text-sm font-bold text-secondary dark:text-primary hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">View Order</button>
+                                        <span class="text-gray-300">|</span>
+                                        <button class="text-sm font-bold text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors">Track Package</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        const OrdersScreen = () => {
+            return (
+                <div class="flex-1 space-y-8">
+                    <section class="bg-white dark:bg-[#0F3D3E] rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-[#1a4a4b]">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                            <div>
+                                <h1 class="text-2xl font-bold dark:text-white mb-2">My Orders</h1>
+                                <p class="text-sm text-slate-500 dark:text-emerald-100/70">View and track your current and past orders.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="relative">
+                                    <select class="appearance-none bg-gray-50 dark:bg-[#154647] dark:text-emerald-100 border border-gray-200 dark:border-[#1a4a4b] rounded-lg text-sm pl-4 pr-10 py-2.5 focus:ring-1 focus:ring-primary focus:border-primary outline-none cursor-pointer">
+                                        <option>All Orders</option>
+                                        <option>Processing</option>
+                                        <option>Shipped</option>
+                                        <option>Delivered</option>
+                                        <option>Cancelled</option>
+                                    </select>
+                                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-lg">expand_more</span>
+                                </div>
+                                <div class="relative">
+                                    <select class="appearance-none bg-gray-50 dark:bg-[#154647] dark:text-emerald-100 border border-gray-200 dark:border-[#1a4a4b] rounded-lg text-sm pl-4 pr-10 py-2.5 focus:ring-1 focus:ring-primary focus:border-primary outline-none cursor-pointer">
+                                        <option>Last 30 days</option>
+                                        <option>Last 3 months</option>
+                                        <option>2023</option>
+                                        <option>2022</option>
+                                    </select>
+                                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-lg">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group">
+                                <div class="bg-gray-50/50 dark:bg-[#154647]/30 p-4 md:p-6 border-b border-gray-100 dark:border-[#1a4a4b] flex flex-col md:flex-row gap-4 md:items-center justify-between">
+                                    <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm">
+                                        <div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Order Placed</p>
+                                            <p class="font-medium text-slate-900 dark:text-white">Oct 24, 2023</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Total</p>
+                                            <p class="font-medium text-slate-900 dark:text-white">$320.50</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Ship To</p>
+                                            <div class="relative group/tooltip inline-block">
+                                                <p class="font-medium text-secondary dark:text-primary cursor-pointer hover:underline">Alex Morgan</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                                        <div class="text-right">
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">Order #ORD-7782-90</p>
+                                            <a class="text-sm font-bold text-secondary dark:text-primary hover:text-emerald-700 dark:hover:text-emerald-300 hover:underline flex items-center justify-end gap-1" href="#">
+                                                View Invoice
+                                                <span class="material-symbols-outlined text-base">description</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 md:p-6 bg-white dark:bg-[#0F3D3E]">
+                                    <div class="flex flex-col lg:flex-row gap-6">
+                                        <div class="flex-1 space-y-6">
+                                            <div class="flex gap-4">
+                                                <div class="size-20 md:size-24 rounded-lg border border-gray-100 dark:border-[#1a4a4b] overflow-hidden bg-gray-50 flex-shrink-0">
+                                                    <img alt="White minimalistic watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5kL6j1qPJ4va_fPPYqNvw6VPZIFjTRC2aV6rKvdYM2-5PZ6zLQG-thKPL845ydwgCP0mCSwjIWl3Cp7NwpUvGwEVmrBp3wgS6Ru19f-7uMOcEg6sU1R83sZMXRM9hHjGg6oNhijgnnB0cn06VdVS_2-bhKe8cfJor0MqHeee-_BWIanJzYirz4rpAgwSfZP6zSOAPZqqKDu6LU1u7oT1qZkk7H2bljfMdBWGGW-_vGFDTbWJfdGipiOAGo-GP_3foHDn9UNbAPUM"/>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="flex justify-between items-start">
+                                                        <div>
+                                                            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Minimalistic Analog Watch</h3>
+                                                            <p class="text-sm text-slate-500 dark:text-emerald-100/60 mb-2">Color: Silver White | Size: 40mm</p>
+                                                            <p class="text-sm font-medium text-slate-900 dark:text-primary">$180.00</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <button class="text-xs font-bold text-secondary dark:text-primary hover:text-emerald-700 uppercase tracking-wide">Buy Again</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex gap-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+                                                <div class="size-20 md:size-24 rounded-lg border border-gray-100 dark:border-[#1a4a4b] overflow-hidden bg-gray-50 flex-shrink-0">
+                                                    <img alt="Wireless headphones" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDriXf61G3Sq7-h0pVsnfpvXb_MYA73SmNDVROcqhCoeGsLzNdijzfAIR6x8Ky3wv6B9KbFx14GnB7mqfTSt8zKfR4lOFA_8Tgteh1S_pwBsHALlLOp75gLQVpl51uv45dgKuJAMSvbk_4bLB_pbDR54_X7J1tk8dpZzs002nzazLoTYlPTa6J6mMFfpSl0nAQkC7HiBtK2LME6nNmnTYkEHIZJ9enuH04-E0hENbAibpfZzBxsMmoskcObrMLE4xN2RD6AR5UhepU"/>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="flex justify-between items-start">
+                                                        <div>
+                                                            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Premium Noise Cancelling Headphones</h3>
+                                                            <p class="text-sm text-slate-500 dark:text-emerald-100/60 mb-2">Color: Matte Black</p>
+                                                            <p class="text-sm font-medium text-slate-900 dark:text-primary">$140.50</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <button class="text-xs font-bold text-secondary dark:text-primary hover:text-emerald-700 uppercase tracking-wide">Buy Again</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-full lg:w-64 flex-shrink-0 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-gray-100 dark:border-[#1a4a4b] pt-6 lg:pt-0 lg:pl-6 gap-4">
+                                            <div>
+                                                <h4 class="font-bold text-slate-900 dark:text-white mb-2">Status</h4>
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <span class="size-2.5 rounded-full bg-green-500"></span>
+                                                    <span class="font-medium text-green-700 dark:text-green-400">Delivered</span>
+                                                </div>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400">Your package was delivered on Oct 26, 2023.</p>
+                                            </div>
+                                            <div class="flex flex-col gap-3">
+                                                <button class="w-full py-2.5 px-4 bg-secondary hover:bg-[#1e6f3d] text-white font-bold rounded-lg transition-colors text-sm shadow-md shadow-emerald-900/10">
+                                                    Track Order
+                                                </button>
+                                                <button class="w-full py-2.5 px-4 bg-white dark:bg-[#154647] border border-gray-200 dark:border-[#1a4a4b] text-slate-700 dark:text-emerald-100 font-bold rounded-lg hover:bg-gray-50 dark:hover:bg-[#1e5759] transition-colors text-sm">
+                                                    View Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group">
+                                <div class="bg-gray-50/50 dark:bg-[#154647]/30 p-4 md:p-6 border-b border-gray-100 dark:border-[#1a4a4b] flex flex-col md:flex-row gap-4 md:items-center justify-between">
+                                    <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm">
+                                        <div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Order Placed</p>
+                                            <p class="font-medium text-slate-900 dark:text-white">Nov 15, 2023</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Total</p>
+                                            <p class="font-medium text-slate-900 dark:text-white">$85.00</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mb-1">Ship To</p>
+                                            <p class="font-medium text-secondary dark:text-primary cursor-pointer hover:underline">Alex Morgan</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                                        <div class="text-right">
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">Order #ORD-8291-55</p>
+                                            <a class="text-sm font-bold text-secondary dark:text-primary hover:text-emerald-700 dark:hover:text-emerald-300 hover:underline flex items-center justify-end gap-1" href="#">
+                                                View Invoice
+                                                <span class="material-symbols-outlined text-base">description</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 md:p-6 bg-white dark:bg-[#0F3D3E]">
+                                    <div class="flex flex-col lg:flex-row gap-6">
+                                        <div class="flex-1 space-y-6">
+                                            <div class="flex gap-4">
+                                                <div class="size-20 md:size-24 rounded-lg border border-gray-100 dark:border-[#1a4a4b] overflow-hidden bg-gray-50 flex-shrink-0">
+                                                    <img alt="Winter knitted sweater" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9bgUBgh1a6bVL5rZS6AfI2WIero5_nxZmc8ff5eeP66H6L72SCF11tzMIixlEuuvBj2QpJU4y5q9mz-aI2x2_HDyT9Ck8YA8rHtcTdE1zvQZKlULBsSUvJoFEWjUakgF4CsJjsTUFRoBTgHaRZl84dLsmT8XfezPkf0Z8oy2a6Fa25LkbxGJ8qkQnaQEDuXNj4Riu3SFyHE-1_OD14jM6JJrYtdP6SA4PGXWHtwj_RJX8tkDPw5MLsMBUrvG8sLPlDa7_xV1QBDU"/>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="flex justify-between items-start">
+                                                        <div>
+                                                            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Cozy Cable Knit Sweater</h3>
+                                                            <p class="text-sm text-slate-500 dark:text-emerald-100/60 mb-2">Color: Cream | Size: M</p>
+                                                            <p class="text-sm font-medium text-slate-900 dark:text-primary">$85.00</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <button class="text-xs font-bold text-secondary dark:text-primary hover:text-emerald-700 uppercase tracking-wide">Buy Again</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-full lg:w-64 flex-shrink-0 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-gray-100 dark:border-[#1a4a4b] pt-6 lg:pt-0 lg:pl-6 gap-4">
+                                            <div>
+                                                <h4 class="font-bold text-slate-900 dark:text-white mb-2">Status</h4>
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <span class="relative flex size-2.5">
+                                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                                        <span class="relative inline-flex rounded-full size-2.5 bg-blue-500"></span>
+                                                    </span>
+                                                    <span class="font-medium text-blue-600 dark:text-blue-400">Shipped</span>
+                                                </div>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400">Arriving by Nov 20. Currently in transit.</p>
+                                            </div>
+                                            <div class="flex flex-col gap-3">
+                                                <button class="w-full py-2.5 px-4 bg-secondary hover:bg-[#1e6f3d] text-white font-bold rounded-lg transition-colors text-sm shadow-md shadow-emerald-900/10">
+                                                    Track Order
+                                                </button>
+                                                <button class="w-full py-2.5 px-4 bg-white dark:bg-[#154647] border border-gray-200 dark:border-[#1a4a4b] text-slate-700 dark:text-emerald-100 font-bold rounded-lg hover:bg-gray-50 dark:hover:bg-[#1e5759] transition-colors text-sm">
+                                                    View Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        const AddressesScreen = () => {
+            return (
+                <div class="flex-1 space-y-8">
+                    <div class="bg-emerald-dark rounded-xl p-8 relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Saved Addresses</h1>
+                            <p class="text-gray-300 max-w-lg">Manage your shipping and billing addresses for a faster checkout experience.</p>
+                        </div>
+                        <div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-primary/20 to-transparent pointer-events-none"></div>
+                        <div class="absolute -bottom-10 -right-10 size-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+                    </div>
+                    <section class="bg-white dark:bg-[#0F3D3E] rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-[#1a4a4b]">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+                            <h2 class="text-xl font-bold dark:text-white">My Addresses (4)</h2>
+                            <button class="flex items-center justify-center gap-2 bg-secondary hover:bg-[#1e6f3d] text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-emerald-900/20 transition-all w-full sm:w-auto">
+                                <span class="material-symbols-outlined text-[20px]">add</span>
+                                Add New Address
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                            <div class="border-2 border-primary bg-emerald-50/50 dark:bg-emerald-900/20 rounded-xl p-6 relative group flex flex-col h-full">
+                                <div class="absolute top-0 right-0 bg-primary text-emerald-900 text-xs font-bold px-3 py-1.5 rounded-bl-lg rounded-tr-lg">Default Shipping</div>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="size-10 rounded-full bg-emerald-100 dark:bg-emerald-800 flex items-center justify-center text-secondary dark:text-primary">
+                                        <span class="material-symbols-outlined">home</span>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-emerald-900 dark:text-white">Home</h3>
+                                </div>
+                                <div class="flex-1 space-y-1 text-slate-600 dark:text-emerald-100 mb-6 text-sm leading-relaxed">
+                                    <p class="font-bold text-slate-900 dark:text-white mb-1">Alex Morgan</p>
+                                    <p>123 Market St, Apt 4B</p>
+                                    <p>San Francisco, CA 94103</p>
+                                    <p>United States</p>
+                                    <p class="mt-2 text-slate-500 dark:text-emerald-100/60">+1 (555) 000-1234</p>
+                                </div>
+                                <div class="flex gap-3 mt-auto pt-4 border-t border-emerald-200 dark:border-emerald-800/50">
+                                    <button class="flex-1 py-2 text-sm font-bold text-emerald-800 dark:text-emerald-200 hover:bg-emerald-100 dark:hover:bg-emerald-800/50 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span> Edit
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 dark:border-[#1a4a4b] bg-white dark:bg-[#0F3D3E] rounded-xl p-6 relative hover:shadow-md transition-shadow flex flex-col h-full">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-slate-500 dark:text-slate-400">
+                                        <span class="material-symbols-outlined">work</span>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-emerald-900 dark:text-white">Office</h3>
+                                </div>
+                                <div class="flex-1 space-y-1 text-slate-600 dark:text-emerald-100 mb-6 text-sm leading-relaxed">
+                                    <p class="font-bold text-slate-900 dark:text-white mb-1">Alex Morgan (c/o Tech Corp)</p>
+                                    <p>500 Terry Francois St</p>
+                                    <p>San Francisco, CA 94158</p>
+                                    <p>United States</p>
+                                    <p class="mt-2 text-slate-500 dark:text-emerald-100/60">+1 (555) 987-6543</p>
+                                </div>
+                                <div class="flex gap-3 mt-auto pt-4 border-t border-gray-100 dark:border-[#1a4a4b]">
+                                    <button class="flex-1 py-2 text-sm font-bold text-slate-600 dark:text-emerald-200 hover:bg-gray-100 dark:hover:bg-emerald-800/30 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span> Edit
+                                    </button>
+                                    <button class="flex-1 py-2 text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                                    </button>
+                                </div>
+                                <button class="mt-3 w-full text-xs font-bold text-secondary dark:text-primary hover:underline uppercase tracking-wide text-center">Set as Default</button>
+                            </div>
+                            <div class="border border-gray-200 dark:border-[#1a4a4b] bg-white dark:bg-[#0F3D3E] rounded-xl p-6 relative hover:shadow-md transition-shadow flex flex-col h-full">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-slate-500 dark:text-slate-400">
+                                        <span class="material-symbols-outlined">family_restroom</span>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-emerald-900 dark:text-white">Parents' House</h3>
+                                </div>
+                                <div class="flex-1 space-y-1 text-slate-600 dark:text-emerald-100 mb-6 text-sm leading-relaxed">
+                                    <p class="font-bold text-slate-900 dark:text-white mb-1">Sarah Morgan</p>
+                                    <p>882 Oak Avenue</p>
+                                    <p>Palo Alto, CA 94301</p>
+                                    <p>United States</p>
+                                    <p class="mt-2 text-slate-500 dark:text-emerald-100/60">+1 (650) 555-0192</p>
+                                </div>
+                                <div class="flex gap-3 mt-auto pt-4 border-t border-gray-100 dark:border-[#1a4a4b]">
+                                    <button class="flex-1 py-2 text-sm font-bold text-slate-600 dark:text-emerald-200 hover:bg-gray-100 dark:hover:bg-emerald-800/30 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span> Edit
+                                    </button>
+                                    <button class="flex-1 py-2 text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                                    </button>
+                                </div>
+                                <button class="mt-3 w-full text-xs font-bold text-secondary dark:text-primary hover:underline uppercase tracking-wide text-center">Set as Default</button>
+                            </div>
+                            <div class="border border-gray-200 dark:border-[#1a4a4b] bg-white dark:bg-[#0F3D3E] rounded-xl p-6 relative hover:shadow-md transition-shadow flex flex-col h-full">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="size-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-slate-500 dark:text-slate-400">
+                                        <span class="material-symbols-outlined">cottage</span>
+                                    </div>
+                                    <h3 class="font-bold text-lg text-emerald-900 dark:text-white">Vacation Home</h3>
+                                </div>
+                                <div class="flex-1 space-y-1 text-slate-600 dark:text-emerald-100 mb-6 text-sm leading-relaxed">
+                                    <p class="font-bold text-slate-900 dark:text-white mb-1">Alex Morgan</p>
+                                    <p>42 Lakeview Drive</p>
+                                    <p>Tahoe City, CA 96145</p>
+                                    <p>United States</p>
+                                    <p class="mt-2 text-slate-500 dark:text-emerald-100/60">+1 (530) 555-0881</p>
+                                </div>
+                                <div class="flex gap-3 mt-auto pt-4 border-t border-gray-100 dark:border-[#1a4a4b]">
+                                    <button class="flex-1 py-2 text-sm font-bold text-slate-600 dark:text-emerald-200 hover:bg-gray-100 dark:hover:bg-emerald-800/30 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span> Edit
+                                    </button>
+                                    <button class="flex-1 py-2 text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                                    </button>
+                                </div>
+                                <button class="mt-3 w-full text-xs font-bold text-secondary dark:text-primary hover:underline uppercase tracking-wide text-center">Set as Default</button>
+                            </div>
+                        </div>
+                        <div class="mt-8 p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 flex gap-4">
+                            <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 flex-shrink-0">info</span>
+                            <div class="text-sm text-blue-800 dark:text-blue-200">
+                                <p class="font-bold mb-1">Address Validation</p>
+                                <p>We validate all addresses to ensure accurate delivery. If you're having trouble adding an address, please contact support.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        const WishlistScreen = () => {
+            return (
+                <div class="flex-1 space-y-8">
+                    <div class="bg-emerald-dark rounded-xl p-8 relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">My Wishlist</h1>
+                            <p class="text-gray-300 max-w-lg">Keep track of the items you love. Prices and availability are subject to change.</p>
+                        </div>
+                        <div class="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-primary/20 to-transparent pointer-events-none"></div>
+                        <div class="absolute -bottom-10 -right-10 size-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+                    </div>
+                    <section class="bg-white dark:bg-[#0F3D3E] rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-[#1a4a4b]">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                            <div>
+                                <h2 class="text-xl font-bold dark:text-white">Saved Items <span class="text-slate-400 font-normal ml-2 text-base">(5 items)</span></h2>
+                            </div>
+                            <div class="flex gap-3">
+                                <select class="form-select bg-gray-50 dark:bg-[#154647] dark:text-emerald-100 border-none rounded-lg text-sm px-4 py-2.5 focus:ring-1 focus:ring-primary">
+                                    <option>Recently Added</option>
+                                    <option>Price: Low to High</option>
+                                    <option>Price: High to Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+                                <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                                    <img alt="Minimalist beige leather handbag" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv7EfysU6IYwEsmTr2aGi1wdrgH15Y6Z3QPML8oyQoXyxxqnUoerUD1fHBUgArVQoqbnAJdsYYvuyiLxCj8ENEeL_fRoJbWRcx8GH2mNpoGVoyM0lUa0R1NoWAO7dCNd_VCVSkDRgJ3srST5blCkxhJxS3y-ALRG432xISRXq00GMPBXWeX6N1RbOr4r5rYbAmvdBSiobjIhz2AnNic-1tBXC4sLhBntLWtojfOSdY02JZ-p5W2Ca_XmmKgN1nG99-EtwkAlCS8sU"/>
+                                    <button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                    <div class="absolute bottom-3 left-3 px-2 py-1 bg-white/90 dark:bg-black/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-white shadow-sm">
+                                        In Stock
+                                    </div>
+                                </div>
+                                <div class="p-5">
+                                    <div class="mb-3">
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Accessories</p>
+                                        <h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Minimalist Leather Tote</h3>
+                                        <div class="flex items-center gap-1 mb-2">
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star_half</span>
+                                            <span class="text-xs text-slate-400 ml-1">(42)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+                                        <span class="text-xl font-bold text-secondary dark:text-primary">$245.00</span>
+                                        <button class="flex items-center gap-2 bg-emerald-dark hover:bg-secondary text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+                                            <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+                                <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                                    <img alt="Red athletic sneakers on white background" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYb4yI_c_NPE0u4HrZ_OyvXYHTl51Qr0yL3WeMRRr8g_g8jJYOE79vmQ347woO3QS5X1Bcr8DaYamXnKRYZqaCLWmtBUHyEK1kgO5DnA4olxKoHpwqJAUpZ0PGt2GvkePFRlmHMS8LI7_ZSALwhHf8H5u0nSpKf0cys0Fjt1FO83GT5Eb_VQB5DmW0vcRzlpJnTsk1yYUASOlqlBaBDaCU6VgDL3FrZ13zGn7CFKjHvu1amGmW5hps_ZBRyLKUD06WvcqIJ0Cc0SA"/>
+                                    <button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                    <div class="absolute bottom-3 left-3 px-2 py-1 bg-yellow-100/90 dark:bg-yellow-900/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-yellow-800 dark:text-yellow-200 shadow-sm">
+                                        Low Stock
+                                    </div>
+                                </div>
+                                <div class="p-5">
+                                    <div class="mb-3">
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Footwear</p>
+                                        <h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Urban Runner Sneakers</h3>
+                                        <div class="flex items-center gap-1 mb-2">
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-gray-300 text-[16px]">star</span>
+                                            <span class="text-xs text-slate-400 ml-1">(18)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+                                        <span class="text-xl font-bold text-secondary dark:text-primary">$129.00</span>
+                                        <button class="flex items-center gap-2 bg-emerald-dark hover:bg-secondary text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+                                            <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+                                <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                                    <img alt="White minimalistic watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5kL6j1qPJ4va_fPPYqNvw6VPZIFjTRC2aV6rKvdYM2-5PZ6zLQG-thKPL845ydwgCP0mCSwjIWl3Cp7NwpUvGwEVmrBp3wgS6Ru19f-7uMOcEg6sU1R83sZMXRM9hHjGg6oNhijgnnB0cn06VdVS_2-bhKe8cfJor0MqHeee-_BWIanJzYirz4rpAgwSfZP6zSOAPZqqKDu6LU1u7oT1qZkk7H2bljfMdBWGGW-_vGFDTbWJfdGipiOAGo-GP_3foHDn9UNbAPUM"/>
+                                    <button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                    <div class="absolute bottom-3 left-3 px-2 py-1 bg-white/90 dark:bg-black/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-white shadow-sm">
+                                        In Stock
+                                    </div>
+                                </div>
+                                <div class="p-5">
+                                    <div class="mb-3">
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Accessories</p>
+                                        <h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Classic Chrono White</h3>
+                                        <div class="flex items-center gap-1 mb-2">
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="text-xs text-slate-400 ml-1">(124)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+                                        <span class="text-xl font-bold text-secondary dark:text-primary">$189.50</span>
+                                        <button class="flex items-center gap-2 bg-emerald-dark hover:bg-secondary text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+                                            <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+                                <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                                    <img alt="Wireless headphones" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDriXf61G3Sq7-h0pVsnfpvXb_MYA73SmNDVROcqhCoeGsLzNdijzfAIR6x8Ky3wv6B9KbFx14GnB7mqfTSt8zKfR4lOFA_8Tgteh1S_pwBsHALlLOp75gLQVpl51uv45dgKuJAMSvbk_4bLB_pbDR54_X7J1tk8dpZzs002nzazLoTYlPTa6J6mMFfpSl0nAQkC7HiBtK2LME6nNmnTYkEHIZJ9enuH04-E0hENbAibpfZzBxsMmoskcObrMLE4xN2RD6AR5UhepU"/>
+                                    <button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                    <div class="absolute bottom-3 left-3 px-2 py-1 bg-red-100/90 dark:bg-red-900/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-red-800 dark:text-red-200 shadow-sm">
+                                        Sale
+                                    </div>
+                                </div>
+                                <div class="p-5">
+                                    <div class="mb-3">
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Electronics</p>
+                                        <h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Studio Pro Wireless</h3>
+                                        <div class="flex items-center gap-1 mb-2">
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star_half</span>
+                                            <span class="text-xs text-slate-400 ml-1">(89)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+                                        <div class="flex flex-col">
+                                            <span class="text-xl font-bold text-secondary dark:text-primary">$299.99</span>
+                                            <span class="text-xs text-slate-400 line-through">$349.99</span>
+                                        </div>
+                                        <button class="flex items-center gap-2 bg-emerald-dark hover:bg-secondary text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+                                            <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group border border-gray-100 dark:border-[#1a4a4b] rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 bg-white dark:bg-[#0F3D3E]">
+                                <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                                    <img alt="Winter knitted sweater" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9bgUBgh1a6bVL5rZS6AfI2WIero5_nxZmc8ff5eeP66H6L72SCF11tzMIixlEuuvBj2QpJU4y5q9mz-aI2x2_HDyT9Ck8YA8rHtcTdE1zvQZKlULBsSUvJoFEWjUakgF4CsJjsTUFRoBTgHaRZl84dLsmT8XfezPkf0Z8oy2a6Fa25LkbxGJ8qkQnaQEDuXNj4Riu3SFyHE-1_OD14jM6JJrYtdP6SA4PGXWHtwj_RJX8tkDPw5MLsMBUrvG8sLPlDa7_xV1QBDU"/>
+                                    <button class="absolute top-3 right-3 p-2 bg-white/90 dark:bg-black/60 rounded-full text-slate-400 hover:text-red-500 transition-colors backdrop-blur-sm shadow-sm" title="Remove from wishlist">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                    <div class="absolute bottom-3 left-3 px-2 py-1 bg-gray-200/90 dark:bg-gray-700/60 backdrop-blur-sm rounded text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 shadow-sm">
+                                        Out of Stock
+                                    </div>
+                                </div>
+                                <div class="p-5">
+                                    <div class="mb-3">
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Apparel</p>
+                                        <h3 class="font-bold text-lg dark:text-white leading-tight mb-1 hover:text-secondary dark:hover:text-primary transition-colors cursor-pointer">Merino Wool Sweater</h3>
+                                        <div class="flex items-center gap-1 mb-2">
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="material-symbols-outlined text-primary text-[16px] fill">star</span>
+                                            <span class="text-xs text-slate-400 ml-1">(15)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-50 dark:border-[#154647]">
+                                        <span class="text-xl font-bold text-secondary dark:text-primary">$85.00</span>
+                                        <button class="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-400 px-4 py-2 rounded-lg text-sm font-bold cursor-not-allowed">
+                                            <span class="material-symbols-outlined text-[18px]">block</span>
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group border-2 border-dashed border-gray-200 dark:border-[#1a4a4b] rounded-xl flex flex-col items-center justify-center p-8 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 min-h-[300px]">
+                                <div class="size-16 rounded-full bg-gray-50 dark:bg-[#154647] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                    <span class="material-symbols-outlined text-[32px] text-slate-400 dark:text-emerald-100/50 group-hover:text-primary transition-colors">add</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-slate-600 dark:text-emerald-100 mb-2">Browse More</h3>
+                                <p class="text-sm text-slate-500 text-center max-w-[200px] mb-6">Explore our latest collections to find more items you'll love.</p>
+                                <button class="text-sm font-bold text-secondary dark:text-primary hover:underline">Go to Shop</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        // --- Layout & App ---
+
+        const Layout = ({ children }) => {
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <Header />
+                    <main class="max-w-[1400px] mx-auto px-4 md:px-10 py-8 md:py-12 w-full flex-1">
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <Sidebar />
+                            {children}
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        const App = () => {
+            return (
+                <MemoryRouter>
+                    <Routes>
+                        <Route path="/" element={<Layout><ProfileScreen /></Layout>} />
+                        <Route path="/orders" element={<Layout><OrdersScreen /></Layout>} />
+                        <Route path="/addresses" element={<Layout><AddressesScreen /></Layout>} />
+                        <Route path="/wishlist" element={<Layout><WishlistScreen /></Layout>} />
+                    </Routes>
+                </MemoryRouter>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
